@@ -804,11 +804,9 @@ body {
 }
 
 .education-card {
-  align-items: center;
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .site-footer {
