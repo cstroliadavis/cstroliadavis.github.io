@@ -40,6 +40,7 @@ describe('createPortfolioApp', () => {
       'filter-status': { innerHTML: '' },
       'hero-summary': { innerHTML: '' },
       'project-list': { innerHTML: '' },
+      'skill-competency-list': { innerHTML: '' },
       'skill-filter-list': { innerHTML: '' },
     });
 
@@ -74,6 +75,12 @@ describe('createPortfolioApp', () => {
     expect(elements['article-list'].innerHTML).toContain(
       'Building MCP Servers: Part 1',
     );
+    expect(elements['skill-competency-list'].innerHTML).toContain(
+      'JavaScript (ES6+ / DOM / Workers)',
+    );
+    expect(elements['skill-competency-list'].innerHTML).toContain(
+      'style="width: 98%"',
+    );
   });
 
   it('renders unmapped technology badges as non-interactive spans and mapped badges as buttons', () => {
@@ -104,6 +111,9 @@ describe('createPortfolioApp', () => {
     );
     expect(elements['project-list'].innerHTML).toContain('empty-filter-card');
     expect(elements['project-list'].innerHTML).not.toContain('vscode-tailor');
+    expect(elements['skill-competency-list'].innerHTML).toContain(
+      'class="competency-box is-active"',
+    );
   });
 
   it('supports multi-select skill filtering across TypeScript, Vue.js, and C#', () => {

@@ -912,6 +912,153 @@ export const PORTFOLIO_DATA = {
     },
   ],
 
+  skillCompetencies: [
+    {
+      id: 'comp-js',
+      name: 'JavaScript (ES6+ / DOM / Workers)',
+
+      filterId: 'javascript',
+      level: 'Core Mastery · 28 yrs',
+      proficiency: 98,
+    },
+    {
+      id: 'comp-ts',
+      name: 'TypeScript',
+
+      filterId: 'typescript',
+      level: 'Core Mastery · 5+ yrs',
+      proficiency: 96,
+    },
+    {
+      id: 'comp-sql-server',
+      name: 'SQL Server & Relational DBs',
+
+      filterId: 'sql',
+      level: 'Core Mastery · 24 yrs',
+      proficiency: 95,
+    },
+    {
+      id: 'comp-leadership',
+      name: 'Technical Leadership & Mentorship',
+
+      filterId: 'leadership',
+      level: 'Core Mastery · 15+ yrs',
+      proficiency: 95,
+    },
+    {
+      id: 'comp-postgres',
+      name: 'PostgreSQL (PL/pgSQL & JSONB)',
+
+      filterId: 'sql',
+      level: 'Core Mastery · 6 yrs',
+      proficiency: 94,
+    },
+    {
+      id: 'comp-node',
+      name: 'Node.js & Express',
+
+      filterId: 'node-bun',
+      level: 'Core Mastery · 11 yrs',
+      proficiency: 94,
+    },
+    {
+      id: 'comp-perf',
+      name: 'Performance & Query Tuning',
+
+      filterId: 'performance',
+      level: 'Core Mastery · 20+ yrs',
+      proficiency: 93,
+    },
+    {
+      id: 'comp-vue',
+      name: 'Vue.js (SPA & SSR Architecture)',
+
+      filterId: 'vue',
+      level: 'Core Mastery · 4 yrs',
+      proficiency: 92,
+    },
+    {
+      id: 'comp-ai-mcp',
+      name: 'AI Tooling & MCP Architecture',
+
+      filterId: 'ai-mcp',
+      level: 'Core Mastery · Current',
+      proficiency: 90,
+    },
+    {
+      id: 'comp-html-css',
+      name: 'HTML5, CSS / LESS & Web UX',
+
+      filterId: 'frontend',
+      level: 'Core Mastery · 25+ yrs',
+      proficiency: 90,
+    },
+    {
+      id: 'comp-csharp',
+      name: 'C# & .NET (API / WPF / WinForms)',
+
+      filterId: 'csharp',
+      level: 'Proficient · 21 yrs',
+      proficiency: 88,
+    },
+    {
+      id: 'comp-react',
+      name: 'React & Redux',
+
+      filterId: 'react',
+      level: 'Proficient · 6 yrs',
+      proficiency: 86,
+    },
+    {
+      id: 'comp-bun-deno',
+      name: 'Bun & Deno Runtimes',
+
+      filterId: 'node-bun',
+      level: 'Proficient · Current',
+      proficiency: 85,
+    },
+    {
+      id: 'comp-redis',
+      name: 'Redis & Distributed Locks',
+
+      filterId: 'distributed',
+      level: 'Proficient · 4 yrs',
+      proficiency: 82,
+    },
+    {
+      id: 'comp-docker',
+      name: 'Docker & Local Dev Stacks',
+
+      filterId: 'distributed',
+      level: 'Proficient · 10 yrs',
+      proficiency: 80,
+    },
+    {
+      id: 'comp-svelte',
+      name: 'Svelte & SolidJS',
+
+      filterId: 'frontend',
+      level: 'Proficient · 2 yrs',
+      proficiency: 75,
+    },
+    {
+      id: 'comp-kafka',
+      name: 'Apache Kafka & Event Streams',
+
+      filterId: 'distributed',
+      level: 'Working Knowledge · 4 yrs',
+      proficiency: 68,
+    },
+    {
+      id: 'comp-k8s-aws',
+      name: 'Kubernetes & AWS Observability',
+
+      filterId: 'distributed',
+      level: 'Working Knowledge · 4 yrs',
+      proficiency: 65,
+    },
+  ],
+
   skillFilters: [
     {
       id: 'all',
