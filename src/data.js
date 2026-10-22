@@ -4,11 +4,6 @@
  * integrates with the multi-select skill-set filter.
  */
 export const PORTFOLIO_DATA = {
-  id: 'cstroliadavis-portfolio',
-  name: 'Christopher Strolia-Davis',
-  title:
-    'Principal & Staff Software Engineer | Technical Leader | Full-Stack Architect',
-
   articles: [
     {
       id: 'mcp-part-1',
@@ -114,13 +109,6 @@ export const PORTFOLIO_DATA = {
     },
   ],
 
-  education: {
-    certifications: ['Professional Scrum Developer (PSD)'],
-    degree: 'Bachelor of Science in Business Information Systems',
-    gpa: '3.94 GPA',
-    institution: 'University of Phoenix',
-  },
-
   experience: [
     {
       id: 'self-employed',
@@ -128,7 +116,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'Self-Employed',
       dateRange: 'Nov 2023 – Present',
-      era: 'primary',
       highlights: [
         {
           skills: ['react', 'typescript', 'javascript', 'frontend'],
@@ -201,7 +188,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'ALINED Consulting Group, LLC (Client: JPMorgan Chase)',
       dateRange: 'Aug 2023 – Nov 2023',
-      era: 'primary',
       highlights: [
         {
           skills: ['react', 'typescript', 'javascript', 'frontend'],
@@ -217,7 +203,7 @@ export const PORTFOLIO_DATA = {
             'accessible user experience.',
         },
         {
-          skills: ['node-bun', 'java', 'typescript', 'javascript'],
+          skills: ['node-bun', 'typescript', 'javascript'],
           text:
             'Collaborated with backend engineers to design and integrate RESTful API ' +
             'service endpoints across Node.js and Java services.',
@@ -239,7 +225,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'Swarm Solutions (Client: Radio.com / Audacy.com)',
       dateRange: 'Mar 2019 – Jun 2023',
-      era: 'primary',
       highlights: [
         {
           skills: ['node-bun', 'vue', 'javascript', 'frontend', 'distributed'],
@@ -311,7 +296,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'edX (2U)',
       dateRange: 'Oct 2022 – Apr 2023',
-      era: 'primary',
       highlights: [
         {
           skills: ['leadership', 'javascript', 'react', 'node-bun'],
@@ -348,7 +332,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'Ingage Partners / Claritas',
       dateRange: 'Apr 2018 – Feb 2019',
-      era: 'primary',
       highlights: [
         {
           skills: ['sql', 'performance', 'leadership'],
@@ -394,10 +377,9 @@ export const PORTFOLIO_DATA = {
 
       company: 'Eliassen Group / Kroger Digital',
       dateRange: 'Dec 2017 – Feb 2018',
-      era: 'primary',
       highlights: [
         {
-          skills: ['java', 'distributed', 'sql'],
+          skills: ['distributed', 'sql'],
           text:
             'Engineered backend microservices in Java, Spring Boot, DB2, and Apache ' +
             'Kafka for Kroger’s enterprise product taxonomy platform, managing ' +
@@ -432,7 +414,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'Great American Insurance Group (Consultant-to-Perm)',
       dateRange: 'Oct 2015 – Dec 2017',
-      era: 'primary',
       highlights: [
         {
           skills: ['javascript', 'frontend', 'performance'],
@@ -460,7 +441,7 @@ export const PORTFOLIO_DATA = {
             'organization’s adoption of React.',
         },
         {
-          skills: ['java', 'sql'],
+          skills: ['sql', 'distributed'],
           text:
             'Navigated a complex backend ecosystem (Java, Groovy, Spring Boot, ' +
             'Apache, Selenium, Docker) backed by Oracle DB and a multi-dimensional ' +
@@ -473,12 +454,15 @@ export const PORTFOLIO_DATA = {
         'JavaScript',
         'AngularJS',
         'Web Workers',
-        'Vue.js / React / Aurelia Evaluation',
+        'Vue.js',
+        'React',
+        'Aurelia',
         'Java',
         'Groovy',
         'Spring Boot',
         'Oracle SQL',
         'Selenium',
+        'Docker',
       ],
     },
     {
@@ -487,7 +471,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'Ingage Partners, LLC',
       dateRange: 'Jan 2015 – Dec 2015',
-      era: 'primary',
       highlights: [
         {
           skills: ['sql', 'performance', 'leadership'],
@@ -514,7 +497,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'Cincinnati Insurance Group (via Ingage Partners)',
       dateRange: 'Jan 2014 – Dec 2014',
-      era: 'primary',
       highlights: [
         {
           skills: ['csharp', 'leadership'],
@@ -546,7 +528,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'Great American Insurance Group (via Ingage Partners)',
       dateRange: 'Jun 2013 – Dec 2013',
-      era: 'primary',
       highlights: [
         {
           skills: ['leadership', 'javascript'],
@@ -572,7 +553,6 @@ export const PORTFOLIO_DATA = {
 
       company: "Cincinnati Children's Medical Center (via Ingage Partners)",
       dateRange: 'Jul 2012 – Jun 2013',
-      era: 'primary',
       highlights: [
         {
           skills: ['csharp', 'sql', 'performance'],
@@ -606,7 +586,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'Procter & Gamble (via Ingage Partners)',
       dateRange: 'Mar 2012 – Jul 2012',
-      era: 'primary',
       highlights: [
         {
           skills: ['frontend', 'performance'],
@@ -632,7 +611,6 @@ export const PORTFOLIO_DATA = {
 
       company: "Cincinnati Children's Medical Center (via Ingage Partners)",
       dateRange: 'Jun 2011 – Feb 2012',
-      era: 'primary',
       highlights: [
         {
           skills: ['javascript', 'leadership', 'sql'],
@@ -658,7 +636,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'Hobart Service',
       dateRange: 'Nov 2006 – May 2011',
-      era: 'primary',
       highlights: [
         {
           skills: ['leadership', 'csharp', 'sql'],
@@ -700,7 +677,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'NKParts',
       dateRange: 'Mar 2005 – Nov 2006',
-      era: 'early',
       highlights: [
         {
           skills: ['frontend', 'performance'],
@@ -726,7 +702,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'BearingPoint',
       dateRange: 'Oct 2004 – Feb 2005',
-      era: 'early',
       highlights: [
         {
           skills: ['csharp', 'sql'],
@@ -745,7 +720,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'CDO Technologies LLC',
       dateRange: 'Jan 2000 – Aug 2004',
-      era: 'early',
       highlights: [
         {
           skills: ['sql', 'performance'],
@@ -789,7 +763,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'Nike (Sport Graphics Division)',
       dateRange: 'Foundational Career (Pre-2000)',
-      era: 'foundational',
       highlights: [
         {
           skills: ['sql', 'performance'],
@@ -814,7 +787,6 @@ export const PORTFOLIO_DATA = {
 
       company: 'Section 8 Housing Division (Municipal Government)',
       dateRange: 'Foundational Career (Pre-2000)',
-      era: 'foundational',
       highlights: [
         {
           skills: ['performance', 'leadership'],
@@ -826,34 +798,6 @@ export const PORTFOLIO_DATA = {
       ],
       location: 'Tucson, AZ',
       technologies: ['Workflow Automation', 'Process Engineering'],
-    },
-  ],
-
-  headline:
-    'Architecting resilient distributed systems, high-throughput data pipelines, ' +
-    'and zero-bloat TypeScript, C#/.NET, SQL, and Agentic AI software.',
-
-  links: [
-    {
-      id: 'linkedin',
-      title: 'LinkedIn',
-
-      handle: 'in/cstroliadavis',
-      url: 'https://www.linkedin.com/in/cstroliadavis/',
-    },
-    {
-      id: 'github',
-      title: 'GitHub',
-
-      handle: 'github.com/cstroliadavis',
-      url: 'https://github.com/cstroliadavis',
-    },
-    {
-      id: 'medium',
-      title: 'Medium',
-
-      handle: '@cstroliadavis',
-      url: 'https://medium.com/@cstroliadavis',
     },
   ],
 

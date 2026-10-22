@@ -28,7 +28,7 @@ function hasMatchingSkill(itemSkills, activeSkills) {
 /**
  * Maps a raw technology badge label to a skill filter ID if applicable.
  */
-function mapTechLabelToSkillId(label) {
+export function mapTechLabelToSkillId(label) {
   const normalized = label.toLowerCase();
 
   if (normalized.includes('typescript')) {
@@ -70,7 +70,9 @@ function mapTechLabelToSkillId(label) {
     normalized.includes('db2') ||
     normalized.includes('teradata') ||
     normalized.includes('odbc') ||
-    normalized.includes('ssrs')
+    normalized.includes('ssrs') ||
+    normalized.includes('linq') ||
+    normalized.includes('etl')
   ) {
     return 'sql';
   }
@@ -91,7 +93,8 @@ function mapTechLabelToSkillId(label) {
     normalized.includes('datadog') ||
     normalized.includes('kibana') ||
     normalized.includes('docker') ||
-    normalized.includes('kubernetes')
+    normalized.includes('kubernetes') ||
+    normalized.includes('aws')
   ) {
     return 'distributed';
   }
@@ -102,7 +105,8 @@ function mapTechLabelToSkillId(label) {
 
   if (
     normalized.includes('leadership') ||
-    normalized.includes('mob programming')
+    normalized.includes('mob programming') ||
+    normalized === 'tdd'
   ) {
     return 'leadership';
   }
@@ -111,7 +115,12 @@ function mapTechLabelToSkillId(label) {
     normalized.includes('worker') ||
     normalized.includes('html') ||
     normalized.includes('less') ||
-    normalized.includes('ux')
+    normalized.includes('ux') ||
+    normalized.includes('vite') ||
+    normalized.includes('storybook') ||
+    normalized.includes('rollup') ||
+    normalized.includes('aurelia') ||
+    normalized.includes('xslt')
   ) {
     return 'frontend';
   }
@@ -161,17 +170,14 @@ function renderArticleCard(article) {
 /**
  * Renders a single work experience entry with multi-skill filtered achievement bullets.
  */
-function renderExperienceCard(role, activeSkills, expandedRoles) {
+function renderExperienceCard(
+  role,
+  matchingHighlights,
+  activeSkills,
+  expandedRoles,
+) {
   const isAll = activeSkills.size === 0;
   const isExpanded = expandedRoles.has(role.id);
-  const matchingHighlights = isAll
-    ? role.highlights
-    : role.highlights.filter((item) => hasMatchingSkill(item.skills, activeSkills));
-
-  if (matchingHighlights.length === 0) {
-    return '';
-  }
-
   const displayedHighlights = isExpanded ? role.highlights : matchingHighlights;
   const hiddenCount = role.highlights.length - matchingHighlights.length;
   const company = escapeHtml(role.company);
@@ -195,15 +201,17 @@ function renderExperienceCard(role, activeSkills, expandedRoles) {
   const techBadgesHtml = role.technologies
     .map((tech) => {
       const mappedSkill = mapTechLabelToSkillId(tech);
-      const isMatchedTech = !isAll && mappedSkill && activeSkills.has(mappedSkill);
+
+      if (!mappedSkill) {
+        return `<span class="tech-tag">${escapeHtml(tech)}</span>`;
+      }
+
+      const isMatchedTech = !isAll && activeSkills.has(mappedSkill);
       const badgeClass = isMatchedTech
         ? 'tech-pill is-active-tech'
         : 'tech-pill';
-      const dataAttr = mappedSkill
-        ? `data-skill-trigger="${escapeHtml(mappedSkill)}"`
-        : '';
 
-      return `<button class="${badgeClass}" ${dataAttr} type="button">${escapeHtml(tech)}</button>`;
+      return `<button class="${badgeClass}" data-skill-trigger="${escapeHtml(mappedSkill)}" type="button">${escapeHtml(tech)}</button>`;
     })
     .join('');
 
@@ -255,14 +263,7 @@ function renderExperienceCard(role, activeSkills, expandedRoles) {
 /**
  * Renders a project card with repository and optional live demo links.
  */
-function renderProjectCard(project, activeSkills) {
-  const isAll = activeSkills.size === 0;
-  const matchesSkill = isAll || hasMatchingSkill(project.skills, activeSkills);
-
-  if (!matchesSkill) {
-    return '';
-  }
-
+function renderProjectCard(project) {
   const category = escapeHtml(project.category);
   const description = escapeHtml(project.description);
   const repoUrl = escapeHtml(project.repoUrl);
@@ -321,6 +322,7 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
     data,
     elements: {},
     expandedRoles: new Set(),
+    isBound: false,
   };
 
   const renderFilterBar = () => {
@@ -416,12 +418,19 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
               hasMatchingSkill(item.skills, _.activeSkills),
             );
 
-        if (matchingBullets.length > 0) {
-          matchedRoleCount += 1;
-          matchedBulletCount += matchingBullets.length;
+        if (matchingBullets.length === 0) {
+          return '';
         }
 
-        return renderExperienceCard(role, _.activeSkills, _.expandedRoles);
+        matchedRoleCount += 1;
+        matchedBulletCount += matchingBullets.length;
+
+        return renderExperienceCard(
+          role,
+          matchingBullets,
+          _.activeSkills,
+          _.expandedRoles,
+        );
       })
       .filter(Boolean)
       .join('');
@@ -435,12 +444,18 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
     );
 
     if (_.elements.projectList) {
-      const emptySet = new Set();
-      const projectsToRender =
-        matchedProjects.length > 0 ? matchedProjects : _.data.projects;
-      _.elements.projectList.innerHTML = projectsToRender
-        .map((project) => renderProjectCard(project, emptySet))
-        .join('');
+      _.elements.projectList.innerHTML =
+        matchedProjects.length > 0
+          ? matchedProjects
+              .map((project) => renderProjectCard(project))
+              .join('')
+          : `<div class="card empty-filter-card">
+              <p class="card-description">
+                No public open-source or bootcamp demo repositories are tagged with the selected filter(s) — see the matching work experience achievements above, or
+                <button class="role-expand-btn" data-reset-filter="true" type="button">clear filters</button>
+                to view all ${_.data.projects.length} featured projects.
+              </p>
+            </div>`;
     }
 
     renderFilterBar();
@@ -485,43 +500,47 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
 
       renderDynamicSections();
 
-      document.addEventListener('click', (event) => {
-        const target = event.target.closest(
-          '[data-skill-id], [data-skill-trigger], [data-reset-filter], [data-expand-role]',
-        );
+      if (!_.isBound) {
+        _.isBound = true;
 
-        if (!target) {
-          return;
-        }
+        document.addEventListener('click', (event) => {
+          const target = event.target.closest(
+            '[data-skill-id], [data-skill-trigger], [data-reset-filter], [data-expand-role]',
+          );
 
-        if (target.hasAttribute('data-reset-filter')) {
-          controller.clearSkills();
-
-          return;
-        }
-
-        if (target.hasAttribute('data-expand-role')) {
-          const roleId = target.getAttribute('data-expand-role');
-
-          if (_.expandedRoles.has(roleId)) {
-            _.expandedRoles.delete(roleId);
-          } else {
-            _.expandedRoles.add(roleId);
+          if (!target) {
+            return;
           }
 
-          renderDynamicSections();
+          if (target.hasAttribute('data-reset-filter')) {
+            controller.clearSkills();
 
-          return;
-        }
+            return;
+          }
 
-        const skillId =
-          target.getAttribute('data-skill-id') ||
-          target.getAttribute('data-skill-trigger');
+          if (target.hasAttribute('data-expand-role')) {
+            const roleId = target.getAttribute('data-expand-role');
 
-        if (skillId) {
-          controller.toggleSkillFilter(skillId);
-        }
-      });
+            if (_.expandedRoles.has(roleId)) {
+              _.expandedRoles.delete(roleId);
+            } else {
+              _.expandedRoles.add(roleId);
+            }
+
+            renderDynamicSections();
+
+            return;
+          }
+
+          const skillId =
+            target.getAttribute('data-skill-id') ||
+            target.getAttribute('data-skill-trigger');
+
+          if (skillId) {
+            controller.toggleSkillFilter(skillId);
+          }
+        });
+      }
     },
 
     toggleSkillFilter(skillId) {
