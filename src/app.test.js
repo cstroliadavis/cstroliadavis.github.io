@@ -1,34 +1,36 @@
 import { describe, expect, it } from 'bun:test';
 
-import { createPortfolioApp, mapTechLabelToSkillId } from './app.js';
+import { createPortfolioApp } from './app.js';
 import { PORTFOLIO_DATA } from './data.js';
 
-describe('mapTechLabelToSkillId', () => {
-  it('maps filterable technology labels to their skill filter IDs', () => {
-    expect(mapTechLabelToSkillId('TypeScript')).toBe('typescript');
-    expect(mapTechLabelToSkillId('Vue.js')).toBe('vue');
-    expect(mapTechLabelToSkillId('React')).toBe('react');
-    expect(mapTechLabelToSkillId('C#')).toBe('csharp');
-    expect(mapTechLabelToSkillId('WPF')).toBe('csharp');
-    expect(mapTechLabelToSkillId('PostgreSQL (PL/pgSQL, JSONB, PostGIS)')).toBe(
-      'sql',
+describe('PORTFOLIO_DATA skill integrity', () => {
+  it('includes every work experience technology in skillCompetencies and vice versa', () => {
+    const roleTechSet = new Set(
+      PORTFOLIO_DATA.experience.flatMap((role) => role.technologies),
     );
-    expect(mapTechLabelToSkillId('LINQ')).toBe('sql');
-    expect(mapTechLabelToSkillId('AWS (EC2, S3, OpenSearch, ElastiCache)')).toBe(
-      'distributed',
+    const sidebarSkillSet = new Set(
+      PORTFOLIO_DATA.skillCompetencies.map((item) => item.name),
     );
-    expect(mapTechLabelToSkillId('Vite')).toBe('frontend');
-    expect(mapTechLabelToSkillId('XSLT 1.0')).toBe('frontend');
-    expect(mapTechLabelToSkillId('Mob Programming')).toBe('leadership');
+
+    for (const tech of roleTechSet) {
+      expect(sidebarSkillSet.has(tech)).toBe(true);
+    }
+
+    for (const skill of sidebarSkillSet) {
+      expect(roleTechSet.has(skill)).toBe(true);
+    }
   });
 
-  it('returns null for non-filterable technology labels including VB.NET and Java', () => {
-    expect(mapTechLabelToSkillId('VB.NET')).toBeNull();
-    expect(mapTechLabelToSkillId('VBA')).toBeNull();
-    expect(mapTechLabelToSkillId('Java')).toBeNull();
-    expect(mapTechLabelToSkillId('Spring Boot')).toBeNull();
-    expect(mapTechLabelToSkillId('SharePoint')).toBeNull();
-    expect(mapTechLabelToSkillId('GraphQL')).toBeNull();
+  it('links every technology in a role to at least one achievement bullet in that role', () => {
+    for (const role of PORTFOLIO_DATA.experience) {
+      const bulletSkills = new Set(
+        role.highlights.flatMap((bullet) => bullet.skills),
+      );
+
+      for (const tech of role.technologies) {
+        expect(bulletSkills.has(tech)).toBe(true);
+      }
+    }
   });
 });
 
@@ -62,7 +64,7 @@ describe('createPortfolioApp', () => {
     return { app, elements, listeners };
   };
 
-  it('renders all career roles, projects, and articles on initial load', () => {
+  it('renders all career roles, projects, articles, and individual sidebar skills on load', () => {
     const { elements } = setup();
 
     expect(elements['filter-status'].innerHTML).toContain(
@@ -76,28 +78,17 @@ describe('createPortfolioApp', () => {
       'Building MCP Servers: Part 1',
     );
     expect(elements['skill-competency-list'].innerHTML).toContain(
-      'JavaScript (ES6+ / DOM / Workers)',
+      'data-skill-trigger="JavaScript"',
     );
     expect(elements['skill-competency-list'].innerHTML).toContain(
       'style="width: 98%"',
     );
   });
 
-  it('renders unmapped technology badges as non-interactive spans and mapped badges as buttons', () => {
-    const { elements } = setup();
-    const experienceHtml = elements['experience-list'].innerHTML;
-
-    expect(experienceHtml).toContain('<span class="tech-tag">VB.NET</span>');
-    expect(experienceHtml).toContain('<span class="tech-tag">Java</span>');
-    expect(experienceHtml).toContain(
-      '<button class="tech-pill" data-skill-trigger="csharp" type="button">C#</button>',
-    );
-  });
-
-  it('filters roles to C# & .NET and displays empty project notice when zero projects match', () => {
+  it('filters roles to C# and separates C# from VB.NET roles', () => {
     const { app, elements } = setup();
 
-    app.toggleSkillFilter('csharp');
+    app.toggleSkillFilter('C#');
 
     expect(elements['experience-list'].innerHTML).toContain(
       'Cincinnati Insurance Group',
@@ -110,18 +101,40 @@ describe('createPortfolioApp', () => {
       'and <strong>0</strong> projects',
     );
     expect(elements['project-list'].innerHTML).toContain('empty-filter-card');
-    expect(elements['project-list'].innerHTML).not.toContain('vscode-tailor');
     expect(elements['skill-competency-list'].innerHTML).toContain(
       'class="competency-box is-active"',
+    );
+  });
+
+  it('filters roles by individual work-experience skills such as VB.NET or Redis', () => {
+    const { app, elements } = setup();
+
+    app.toggleSkillFilter('VB.NET');
+
+    expect(elements['experience-list'].innerHTML).toContain('NKParts');
+    expect(elements['experience-list'].innerHTML).toContain(
+      'CDO Technologies LLC',
+    );
+    expect(elements['experience-list'].innerHTML).not.toContain('BearingPoint');
+
+    app.clearSkills();
+    app.toggleSkillFilter('Redis');
+
+    expect(elements['experience-list'].innerHTML).toContain('Swarm Solutions');
+    expect(elements['experience-list'].innerHTML).toContain(
+      'semaphore queue manager',
+    );
+    expect(elements['experience-list'].innerHTML).not.toContain(
+      'Kroger Digital',
     );
   });
 
   it('supports multi-select skill filtering across TypeScript, Vue.js, and C#', () => {
     const { app, elements } = setup();
 
-    app.toggleSkillFilter('typescript');
-    app.toggleSkillFilter('vue');
-    app.toggleSkillFilter('csharp');
+    app.toggleSkillFilter('TypeScript');
+    app.toggleSkillFilter('Vue.js');
+    app.toggleSkillFilter('C#');
 
     expect(elements['filter-status'].innerHTML).toContain(
       '<strong>3</strong> selected',

@@ -26,109 +26,6 @@ function hasMatchingSkill(itemSkills, activeSkills) {
 }
 
 /**
- * Maps a raw technology badge label to a skill filter ID if applicable.
- */
-export function mapTechLabelToSkillId(label) {
-  const normalized = label.toLowerCase();
-
-  if (normalized.includes('typescript')) {
-    return 'typescript';
-  }
-
-  if (
-    normalized.includes('javascript') ||
-    normalized.includes('angularjs') ||
-    normalized.includes('jquery') ||
-    normalized.includes('dojo') ||
-    normalized.includes('handlebars') ||
-    normalized.includes('knockout')
-  ) {
-    return 'javascript';
-  }
-
-  if (
-    normalized.includes('node') ||
-    normalized.includes('bun') ||
-    normalized.includes('express')
-  ) {
-    return 'node-bun';
-  }
-
-  if (normalized.includes('react') || normalized.includes('redux')) {
-    return 'react';
-  }
-
-  if (normalized.includes('vue')) {
-    return 'vue';
-  }
-
-  if (
-    normalized.includes('sql') ||
-    normalized.includes('postgres') ||
-    normalized.includes('postgis') ||
-    normalized.includes('oracle') ||
-    normalized.includes('db2') ||
-    normalized.includes('teradata') ||
-    normalized.includes('odbc') ||
-    normalized.includes('ssrs') ||
-    normalized.includes('linq') ||
-    normalized.includes('etl')
-  ) {
-    return 'sql';
-  }
-
-  if (
-    normalized.includes('c#') ||
-    normalized === '.net' ||
-    normalized.includes('wpf') ||
-    normalized.includes('winforms')
-  ) {
-    return 'csharp';
-  }
-
-  if (
-    normalized.includes('redis') ||
-    normalized.includes('kafka') ||
-    normalized.includes('elasticsearch') ||
-    normalized.includes('datadog') ||
-    normalized.includes('kibana') ||
-    normalized.includes('docker') ||
-    normalized.includes('kubernetes') ||
-    normalized.includes('aws')
-  ) {
-    return 'distributed';
-  }
-
-  if (normalized.includes('mcp') || normalized.includes('ai')) {
-    return 'ai-mcp';
-  }
-
-  if (
-    normalized.includes('leadership') ||
-    normalized.includes('mob programming') ||
-    normalized === 'tdd'
-  ) {
-    return 'leadership';
-  }
-
-  if (
-    normalized.includes('worker') ||
-    normalized.includes('html') ||
-    normalized.includes('less') ||
-    normalized.includes('ux') ||
-    normalized.includes('vite') ||
-    normalized.includes('storybook') ||
-    normalized.includes('rollup') ||
-    normalized.includes('aurelia') ||
-    normalized.includes('xslt')
-  ) {
-    return 'frontend';
-  }
-
-  return null;
-}
-
-/**
  * Renders the HTML string for a single Medium article card.
  */
 function renderArticleCard(article) {
@@ -200,18 +97,13 @@ function renderExperienceCard(
 
   const techBadgesHtml = role.technologies
     .map((tech) => {
-      const mappedSkill = mapTechLabelToSkillId(tech);
-
-      if (!mappedSkill) {
-        return `<span class="tech-tag">${escapeHtml(tech)}</span>`;
-      }
-
-      const isMatchedTech = !isAll && activeSkills.has(mappedSkill);
+      const isMatchedTech = !isAll && activeSkills.has(tech);
       const badgeClass = isMatchedTech
         ? 'tech-pill is-active-tech'
         : 'tech-pill';
+      const ariaPressed = isMatchedTech ? 'true' : 'false';
 
-      return `<button class="${badgeClass}" data-skill-trigger="${escapeHtml(mappedSkill)}" type="button">${escapeHtml(tech)}</button>`;
+      return `<button class="${badgeClass}" aria-pressed="${ariaPressed}" data-skill-trigger="${escapeHtml(tech)}" type="button">${escapeHtml(tech)}</button>`;
     })
     .join('');
 
@@ -363,27 +255,25 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
 
     const boxesHtml = _.data.skillCompetencies
       .map((item) => {
-        const isActive = Boolean(
-          item.filterId && _.activeSkills.has(item.filterId),
-        );
+        const isActive = _.activeSkills.has(item.name);
         const boxClass = isActive
           ? 'competency-box is-active'
           : 'competency-box';
         const ariaPressed = isActive ? 'true' : 'false';
-        const clampedWidth = Math.max(0, Math.min(100, Number(item.proficiency)));
+        const clampedWidth = Math.max(
+          0,
+          Math.min(100, Number(item.proficiency)),
+        );
 
         return `
           <button
             class="${boxClass}"
 
             aria-pressed="${ariaPressed}"
-            data-skill-trigger="${escapeHtml(item.filterId)}"
+            data-skill-trigger="${escapeHtml(item.name)}"
             type="button"
           >
-            <div class="competency-box-body">
-              <span class="competency-name">${escapeHtml(item.name)}</span>
-              <span class="competency-meta">${escapeHtml(item.level)}</span>
-            </div>
+            <span class="competency-name">${escapeHtml(item.name)}</span>
             <div
               class="competency-bar-track"
               aria-hidden="true"
@@ -420,15 +310,14 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
         <span>Showing all <strong>${_.data.experience.length}</strong> career roles,
         <strong>${totalBullets}</strong> key achievements, and
         <strong>${_.data.projects.length}</strong> featured projects.
-        Select <strong>one or multiple skills</strong> above—or click technology tags on any role—to filter.</span>
+        Select <strong>one or multiple skills</strong> from the sidebar, filter bar, or role cards to filter.</span>
       `;
 
       return;
     }
 
-    const activeLabels = _.data.skillFilters
-      .filter((item) => _.activeSkills.has(item.id))
-      .map((item) => `<strong>${escapeHtml(item.label)}</strong>`)
+    const activeLabels = Array.from(_.activeSkills)
+      .map((skill) => `<strong>${escapeHtml(skill)}</strong>`)
       .join(' + ');
 
     _.elements.filterStatus.innerHTML = `

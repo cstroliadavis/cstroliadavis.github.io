@@ -314,7 +314,7 @@ body {
 .competency-box-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
 }
 
 .competency-box {
@@ -326,7 +326,7 @@ body {
   flex-direction: column;
   font-family: var(--sdc-font-sans);
   overflow: hidden;
-  padding: 9px 12px 13px;
+  padding: 8px 12px 11px;
   position: relative;
   text-align: left;
   transition:
@@ -350,25 +350,11 @@ body {
   box-shadow: 0 2px 8px rgba(19, 64, 116, 0.16);
 }
 
-.competency-box-body {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  width: 100%;
-}
-
 .competency-name {
   color: var(--sdc-text-primary);
   font-size: 0.82rem;
   font-weight: 700;
   line-height: 1.3;
-}
-
-.competency-meta {
-  color: var(--sdc-text-muted);
-  font-family: var(--sdc-font-mono);
-  font-size: 0.7rem;
-  font-weight: 500;
 }
 
 .competency-bar-track {
