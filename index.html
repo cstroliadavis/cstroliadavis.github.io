@@ -17,6 +17,81 @@
     />
   </head>
   <body>
+    <div
+      class="ambient-backdrop"
+      aria-hidden="true"
+    >
+      <div class="ambient-screen-glow"></div>
+      <div class="ambient-tech-grid"></div>
+
+      <pre class="ambient-code-pane ambient-code-pane-primary"><code><span class="ck">export function</span> <span class="cf">createSemaphoreQueue</span>(deps: { <span class="cp">redis</span>: RedisClient; <span class="cp">ttlMs</span>: <span class="ct">number</span> }) {
+  <span class="ck">const</span> _ = {
+    <span class="cp">activeLocks</span>: <span class="ck">new</span> <span class="ct">Map</span>&lt;<span class="ct">string</span>, <span class="ct"> string</span>&gt;(),
+    <span class="cp">maxConcurrency</span>: <span class="cn">40</span>,
+    <span class="cp">namespace</span>: <span class="cs">'swarm:deploy:semaphore'</span>,
+  };
+
+  <span class="ck">const</span> acquireSlot = <span class="ck">async</span> (instanceId: <span class="ct">string</span>): <span class="ct">Promise</span>&lt;<span class="ct">boolean</span>&gt; =&gt; {
+    <span class="ck">const</span> lockKey = <span class="cs">`${_.namespace}:${instanceId}`</span>;
+    <span class="ck">const</span> acquired = <span class="ck">await</span> deps.redis.<span class="cf">set</span>(lockKey, <span class="cs">'LOCKED'</span>, <span class="cs">'NX'</span>, <span class="cs">'PX'</span>, deps.ttlMs);
+    <span class="ck">if</span> (acquired) _.activeLocks.<span class="cf">set</span>(instanceId, lockKey);
+    <span class="ck">return</span> <span class="cf">Boolean</span>(acquired);
+  };
+
+  <span class="ck">return</span> { acquireSlot };
+}
+
+<span class="cc">-- Multi-Tenant Publishing Pipeline CTE Optimization (Hours -&gt; &lt; 2 Min)</span>
+<span class="ck">WITH</span> IndexedPayloadSlice <span class="ck">AS</span> (
+  <span class="ck">SELECT</span> p.tenant_id, p.document_id, p.published_at,
+         <span class="cf">JSONB_PATH_QUERY_FIRST</span>(p.payload, <span class="cs">'$.metadata.stationCode'</span>) <span class="ck">AS</span> station_code
+  <span class="ck">FROM</span> publishing_events p
+  <span class="ck">WHERE</span> p.status = <span class="cs">'READY'</span> <span class="ck">AND</span> p.published_at &gt;= <span class="cf">NOW</span>() - <span class="ck">INTERVAL</span> <span class="cs">'24 hours'</span>
+)
+<span class="ck">SELECT</span> s.station_code, <span class="cf">COUNT</span>(*) <span class="ck">AS</span> throughput_count
+<span class="ck">FROM</span> IndexedPayloadSlice s
+<span class="ck">GROUP BY</span> s.station_code
+<span class="ck">ORDER BY</span> throughput_count <span class="ck">DESC</span>;</code></pre>
+
+      <pre class="ambient-code-pane ambient-code-pane-secondary"><code><span class="cc">// Model Context Protocol (MCP) Hierarchical Concept Memory Server</span>
+<span class="ck">export function</span> <span class="cf">registerMemoryTools</span>(server: <span class="ct">McpServer</span>, store: <span class="ct">ConceptStore</span>) {
+  server.<span class="cf">tool</span>(
+    <span class="cs">'query_concept_graph'</span>,
+    { <span class="cp">domain</span>: z.<span class="cf">string</span>(), <span class="cp">depth</span>: z.<span class="cf">number</span>().<span class="cf">default</span>(<span class="cn">2</span>) },
+    <span class="ck">async</span> ({ domain, depth }) =&gt; {
+      <span class="ck">const</span> nodes = <span class="ck">await</span> store.<span class="cf">traverseHierarchy</span>({ domain, depth });
+      <span class="ck">return</span> {
+        <span class="cp">content</span>: [{ <span class="cp">type</span>: <span class="cs">'text'</span>, <span class="cp">text</span>: <span class="ct">JSON</span>.<span class="cf">stringify</span>(nodes, <span class="ck">null</span>, <span class="cn">2</span>) }],
+      };
+    },
+  );
+}
+
+<span class="cc">// Reusable Web Worker Higher-Order Function (HOF) Wrapper</span>
+<span class="ck">export const</span> <span class="cf">withWorkerThread</span> = &lt;<span class="ct">TArgs</span> <span class="ck">extends</span> <span class="ct">unknown</span>[], <span class="ct">TResult</span>&gt;(
+  fn: (...args: <span class="ct">TArgs</span>) =&gt; <span class="ct">TResult</span>,
+) =&gt; {
+  <span class="ck">const</span> source = <span class="cs">`self.onmessage = (e) =&gt; self.postMessage((${fn.toString()})(...e.data));`</span>;
+  <span class="ck">const</span> blobUrl = <span class="ct">URL</span>.<span class="cf">createObjectURL</span>(<span class="ck">new</span> <span class="ct">Blob</span>([source], { <span class="cp">type</span>: <span class="cs">'text/javascript'</span> }));
+
+  <span class="ck">return</span> (...args: <span class="ct">TArgs</span>): <span class="ct">Promise</span>&lt;<span class="ct">TResult</span>&gt; =&gt;
+    <span class="ck">new</span> <span class="ct">Promise</span>((resolve, reject) =&gt; {
+      <span class="ck">const</span> worker = <span class="ck">new</span> <span class="ct">Worker</span>(blobUrl);
+      worker.<span class="cp">onmessage</span> = (event) =&gt; {
+        worker.<span class="cf">terminate</span>();
+        <span class="cf">resolve</span>(event.data);
+      };
+      worker.<span class="cp">onerror</span> = (err) =&gt; {
+        worker.<span class="cf">terminate</span>();
+        <span class="cf">reject</span>(err);
+      };
+      worker.<span class="cf">postMessage</span>(args);
+    });
+};</code></pre>
+
+      <div class="ambient-gradient-veil"></div>
+    </div>
+
     <div class="page-accent-bar"></div>
 
     <header class="site-header">
