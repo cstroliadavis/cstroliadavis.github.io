@@ -15,18 +15,32 @@ function escapeHtml(value) {
 }
 
 /**
+ * Checks whether a list of skill tags intersects with the active skill Set.
+ */
+function hasMatchingSkill(itemSkills, activeSkills) {
+  if (activeSkills.size === 0) {
+    return true;
+  }
+
+  return itemSkills.some((skill) => activeSkills.has(skill));
+}
+
+/**
  * Maps a raw technology badge label to a skill filter ID if applicable.
  */
 function mapTechLabelToSkillId(label) {
   const normalized = label.toLowerCase();
 
+  if (normalized.includes('typescript')) {
+    return 'typescript';
+  }
+
   if (
-    normalized.includes('typescript') ||
     normalized.includes('javascript') ||
     normalized.includes('angularjs') ||
     normalized.includes('jquery')
   ) {
-    return 'ts-js';
+    return 'javascript';
   }
 
   if (
@@ -136,14 +150,14 @@ function renderArticleCard(article) {
 }
 
 /**
- * Renders a single work experience entry with filtered achievement bullets.
+ * Renders a single work experience entry with multi-skill filtered achievement bullets.
  */
-function renderExperienceCard(role, activeSkill, expandedRoles) {
-  const isAll = activeSkill === 'all';
+function renderExperienceCard(role, activeSkills, expandedRoles) {
+  const isAll = activeSkills.size === 0;
   const isExpanded = expandedRoles.has(role.id);
   const matchingHighlights = isAll
     ? role.highlights
-    : role.highlights.filter((item) => item.skills.includes(activeSkill));
+    : role.highlights.filter((item) => hasMatchingSkill(item.skills, activeSkills));
 
   if (matchingHighlights.length === 0) {
     return '';
@@ -160,7 +174,7 @@ function renderExperienceCard(role, activeSkill, expandedRoles) {
   const bulletsHtml = displayedHighlights
     .map((item) => {
       const isDirectMatch =
-        !isAll && item.skills.includes(activeSkill) && isExpanded;
+        !isAll && hasMatchingSkill(item.skills, activeSkills) && isExpanded;
       const itemClass = isDirectMatch
         ? 'experience-bullet is-highlighted-bullet'
         : 'experience-bullet';
@@ -172,7 +186,7 @@ function renderExperienceCard(role, activeSkill, expandedRoles) {
   const techBadgesHtml = role.technologies
     .map((tech) => {
       const mappedSkill = mapTechLabelToSkillId(tech);
-      const isMatchedTech = !isAll && mappedSkill === activeSkill;
+      const isMatchedTech = !isAll && mappedSkill && activeSkills.has(mappedSkill);
       const badgeClass = isMatchedTech
         ? 'tech-pill is-active-tech'
         : 'tech-pill';
@@ -232,9 +246,9 @@ function renderExperienceCard(role, activeSkill, expandedRoles) {
 /**
  * Renders a project card with repository and optional live demo links.
  */
-function renderProjectCard(project, activeSkill) {
-  const isAll = activeSkill === 'all';
-  const matchesSkill = isAll || project.skills.includes(activeSkill);
+function renderProjectCard(project, activeSkills) {
+  const isAll = activeSkills.size === 0;
+  const matchesSkill = isAll || hasMatchingSkill(project.skills, activeSkills);
 
   if (!matchesSkill) {
     return '';
@@ -290,11 +304,11 @@ function renderProjectCard(project, activeSkill) {
 }
 
 /**
- * Creates the interactive portfolio controller using closure-based state.
+ * Creates the interactive portfolio controller supporting multi-skill selection.
  */
 export function createPortfolioApp(data = PORTFOLIO_DATA) {
   const _ = {
-    activeSkill: 'all',
+    activeSkills: new Set(),
     data,
     elements: {},
     expandedRoles: new Set(),
@@ -305,9 +319,12 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
       return;
     }
 
+    const isAllSelected = _.activeSkills.size === 0;
+
     const buttonsHtml = _.data.skillFilters
       .map((filter) => {
-        const isActive = filter.id === _.activeSkill;
+        const isActive =
+          filter.id === 'all' ? isAllSelected : _.activeSkills.has(filter.id);
         const btnClass = isActive
           ? 'filter-pill is-active'
           : 'filter-pill';
@@ -328,12 +345,16 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
     _.elements.skillFilterList.innerHTML = buttonsHtml;
   };
 
-  const renderStatusBanner = (matchedRoleCount, matchedBulletCount, matchedProjectCount) => {
+  const renderStatusBanner = (
+    matchedRoleCount,
+    matchedBulletCount,
+    matchedProjectCount,
+  ) => {
     if (!_.elements.filterStatus) {
       return;
     }
 
-    if (_.activeSkill === 'all') {
+    if (_.activeSkills.size === 0) {
       const totalBullets = _.data.experience.reduce(
         (sum, role) => sum + role.highlights.length,
         0,
@@ -343,19 +364,20 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
         <span>Showing all <strong>${_.data.experience.length}</strong> career roles,
         <strong>${totalBullets}</strong> key achievements, and
         <strong>${_.data.projects.length}</strong> featured projects.
-        Select any skill above—or click a technology tag on any role—to filter.</span>
+        Select <strong>one or multiple skills</strong> above—or click technology tags on any role—to filter.</span>
       `;
 
       return;
     }
 
-    const activeFilterObj = _.data.skillFilters.find(
-      (item) => item.id === _.activeSkill,
-    );
-    const activeLabel = activeFilterObj ? activeFilterObj.label : _.activeSkill;
+    const activeLabels = _.data.skillFilters
+      .filter((item) => _.activeSkills.has(item.id))
+      .map((item) => `<strong>${escapeHtml(item.label)}</strong>`)
+      .join(' + ');
 
     _.elements.filterStatus.innerHTML = `
-      <span>Filtered by <strong>${escapeHtml(activeLabel)}</strong>:
+      <span>Filtered by ${activeLabels}
+      (<strong>${_.activeSkills.size}</strong> selected):
       showing <strong>${matchedBulletCount}</strong> matching achievement${
         matchedBulletCount === 1 ? '' : 's'
       } across <strong>${matchedRoleCount}</strong> work location${
@@ -368,12 +390,12 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
 
         data-reset-filter="true"
         type="button"
-      >Reset Filter &times;</button>
+      >Clear Filters &times;</button>
     `;
   };
 
   const renderDynamicSections = () => {
-    const isAll = _.activeSkill === 'all';
+    const isAll = _.activeSkills.size === 0;
     let matchedRoleCount = 0;
     let matchedBulletCount = 0;
 
@@ -381,14 +403,16 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
       .map((role) => {
         const matchingBullets = isAll
           ? role.highlights
-          : role.highlights.filter((item) => item.skills.includes(_.activeSkill));
+          : role.highlights.filter((item) =>
+              hasMatchingSkill(item.skills, _.activeSkills),
+            );
 
         if (matchingBullets.length > 0) {
           matchedRoleCount += 1;
           matchedBulletCount += matchingBullets.length;
         }
 
-        return renderExperienceCard(role, _.activeSkill, _.expandedRoles);
+        return renderExperienceCard(role, _.activeSkills, _.expandedRoles);
       })
       .filter(Boolean)
       .join('');
@@ -398,14 +422,15 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
     }
 
     const matchedProjects = _.data.projects.filter(
-      (project) => isAll || project.skills.includes(_.activeSkill),
+      (project) => isAll || hasMatchingSkill(project.skills, _.activeSkills),
     );
 
     if (_.elements.projectList) {
+      const emptySet = new Set();
       const projectsToRender =
         matchedProjects.length > 0 ? matchedProjects : _.data.projects;
       _.elements.projectList.innerHTML = projectsToRender
-        .map((project) => renderProjectCard(project, 'all'))
+        .map((project) => renderProjectCard(project, emptySet))
         .join('');
     }
 
@@ -418,6 +443,12 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
   };
 
   const controller = {
+    clearSkills() {
+      _.activeSkills.clear();
+      _.expandedRoles.clear();
+      renderDynamicSections();
+    },
+
     init() {
       Object.assign(_.elements, {
         articleList: document.getElementById('article-list'),
@@ -430,7 +461,10 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
 
       if (_.elements.heroSummary) {
         _.elements.heroSummary.innerHTML = _.data.summaryParagraphs
-          .map((paragraph) => `<p class="hero-paragraph">${escapeHtml(paragraph)}</p>`)
+          .map(
+            (paragraph) =>
+              `<p class="hero-paragraph">${escapeHtml(paragraph)}</p>`,
+          )
           .join('');
       }
 
@@ -452,7 +486,7 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
         }
 
         if (target.hasAttribute('data-reset-filter')) {
-          controller.setSkillFilter('all');
+          controller.clearSkills();
 
           return;
         }
@@ -476,18 +510,20 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
           target.getAttribute('data-skill-trigger');
 
         if (skillId) {
-          const nextSkill =
-            _.activeSkill === skillId && target.hasAttribute('data-skill-id')
-              ? 'all'
-              : skillId;
-
-          controller.setSkillFilter(nextSkill);
+          controller.toggleSkillFilter(skillId);
         }
       });
     },
 
-    setSkillFilter(skillId) {
-      _.activeSkill = skillId;
+    toggleSkillFilter(skillId) {
+      if (skillId === 'all') {
+        _.activeSkills.clear();
+      } else if (_.activeSkills.has(skillId)) {
+        _.activeSkills.delete(skillId);
+      } else {
+        _.activeSkills.add(skillId);
+      }
+
       _.expandedRoles.clear();
       renderDynamicSections();
     },
