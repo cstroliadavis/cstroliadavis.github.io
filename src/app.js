@@ -38,7 +38,10 @@ function mapTechLabelToSkillId(label) {
   if (
     normalized.includes('javascript') ||
     normalized.includes('angularjs') ||
-    normalized.includes('jquery')
+    normalized.includes('jquery') ||
+    normalized.includes('dojo') ||
+    normalized.includes('handlebars') ||
+    normalized.includes('knockout')
   ) {
     return 'javascript';
   }
@@ -64,6 +67,7 @@ function mapTechLabelToSkillId(label) {
     normalized.includes('postgres') ||
     normalized.includes('postgis') ||
     normalized.includes('oracle') ||
+    normalized.includes('db2') ||
     normalized.includes('teradata') ||
     normalized.includes('odbc') ||
     normalized.includes('ssrs')
@@ -73,8 +77,8 @@ function mapTechLabelToSkillId(label) {
 
   if (
     normalized.includes('c#') ||
-    normalized.includes('.net') ||
-    normalized.includes('linq') ||
+    normalized === '.net' ||
+    normalized.includes('wpf') ||
     normalized.includes('winforms')
   ) {
     return 'csharp';
@@ -84,6 +88,8 @@ function mapTechLabelToSkillId(label) {
     normalized.includes('redis') ||
     normalized.includes('kafka') ||
     normalized.includes('elasticsearch') ||
+    normalized.includes('datadog') ||
+    normalized.includes('kibana') ||
     normalized.includes('docker') ||
     normalized.includes('kubernetes')
   ) {
@@ -94,7 +100,10 @@ function mapTechLabelToSkillId(label) {
     return 'ai-mcp';
   }
 
-  if (normalized.includes('leadership')) {
+  if (
+    normalized.includes('leadership') ||
+    normalized.includes('mob programming')
+  ) {
     return 'leadership';
   }
 
