@@ -1,7 +1,7 @@
 /**
  * Structured portfolio, project, article, and skill-tagged experience data.
  * Designed so adding new pre-CDO roles or achievement bullets automatically
- * integrates with the interactive skill-set filter.
+ * integrates with the multi-select skill-set filter.
  */
 export const PORTFOLIO_DATA = {
   id: 'cstroliadavis-portfolio',
@@ -131,7 +131,7 @@ export const PORTFOLIO_DATA = {
       era: 'primary',
       highlights: [
         {
-          skills: ['ts-js', 'frontend', 'performance'],
+          skills: ['typescript', 'javascript', 'frontend', 'performance'],
           text:
             'Architected a reusable Web Worker Higher-Order Function (HOF) wrapper ' +
             'that converted synchronous functions into asynchronous worker-thread ' +
@@ -149,7 +149,7 @@ export const PORTFOLIO_DATA = {
             'time from hours to under 2 minutes and eliminating daily timeout crashes.',
         },
         {
-          skills: ['ts-js', 'frontend', 'leadership'],
+          skills: ['typescript', 'javascript', 'frontend', 'leadership'],
           text:
             'Engineered a low-profile search component with multi-page highlighting, ' +
             'leveraging existing AngularJS and TypeScript architecture to avoid a ' +
@@ -157,7 +157,7 @@ export const PORTFOLIO_DATA = {
             'architectural shifts.',
         },
         {
-          skills: ['csharp', 'ts-js', 'leadership'],
+          skills: ['csharp', 'typescript', 'leadership'],
           text:
             'Stepped in as technical lead to research, design, and deliver a ' +
             'high-priority, secure C# / .NET REST API integration Proof of Concept ' +
@@ -165,7 +165,7 @@ export const PORTFOLIO_DATA = {
             'data exchange requirements.',
         },
         {
-          skills: ['ts-js', 'csharp', 'leadership'],
+          skills: ['typescript', 'javascript', 'csharp', 'leadership'],
           text:
             'Proactively improved the health of a 10+ year-old legacy codebase by ' +
             'systematically replacing anti-patterns with clean, maintainable patterns ' +
@@ -173,7 +173,7 @@ export const PORTFOLIO_DATA = {
             'extensions.',
         },
         {
-          skills: ['ai-mcp', 'ts-js', 'node-bun'],
+          skills: ['ai-mcp', 'typescript', 'javascript', 'node-bun'],
           text:
             'Designed and published open-source TypeScript/Bun developer tooling ' +
             '(vscode-tailor, logging, csv-lib, coliner, s20) and Model Context ' +
@@ -205,20 +205,20 @@ export const PORTFOLIO_DATA = {
       era: 'primary',
       highlights: [
         {
-          skills: ['react', 'ts-js', 'frontend'],
+          skills: ['react', 'typescript', 'javascript', 'frontend'],
           text:
             'Developed and enhanced user-facing features for an enterprise financial ' +
             'application using React, TypeScript, Vite, and Vitest.',
         },
         {
-          skills: ['react', 'frontend'],
+          skills: ['react', 'typescript', 'frontend'],
           text:
             'Integrated a proprietary in-house component library and design system, ' +
             'collaborating closely with product stakeholders to maintain a seamless, ' +
             'accessible user experience.',
         },
         {
-          skills: ['node-bun', 'java', 'ts-js'],
+          skills: ['node-bun', 'java', 'typescript', 'javascript'],
           text:
             'Collaborated with backend engineers to design and integrate RESTful API ' +
             'service endpoints across Node.js and Java services.',
@@ -243,7 +243,7 @@ export const PORTFOLIO_DATA = {
       era: 'primary',
       highlights: [
         {
-          skills: ['distributed', 'node-bun', 'performance'],
+          skills: ['distributed', 'node-bun', 'javascript', 'performance'],
           text:
             'Engineered a Redis-backed semaphore queue manager to eliminate ' +
             'thundering-herd database deadlocks and connection pool exhaustion when ' +
@@ -252,7 +252,7 @@ export const PORTFOLIO_DATA = {
             'millions of users across 400+ stations.',
         },
         {
-          skills: ['sql', 'distributed', 'node-bun'],
+          skills: ['sql', 'distributed', 'node-bun', 'javascript'],
           text:
             'Engineered and executed a multi-month data migration for Audacy.com, ' +
             'rewriting 100,000+ records across PostgreSQL and Elasticsearch to ' +
@@ -260,7 +260,7 @@ export const PORTFOLIO_DATA = {
             'critical CMS architectural constraint with zero downtime.',
         },
         {
-          skills: ['node-bun', 'vue', 'ts-js', 'distributed'],
+          skills: ['node-bun', 'vue', 'javascript', 'distributed'],
           text:
             'Co-developed a multi-tenant Node.js, Vue.js, and Handlebars publishing ' +
             'platform (Clay CMS) backed by Fastly CDN, consolidating 400+ fragmented ' +
@@ -268,21 +268,21 @@ export const PORTFOLIO_DATA = {
             'localized station feeds and canonical national publishing.',
         },
         {
-          skills: ['react', 'ts-js', 'node-bun', 'frontend'],
+          skills: ['react', 'typescript', 'javascript', 'node-bun', 'frontend'],
           text:
             'Developed the React and TypeScript frontend for a federated ' +
             'authentication and authorization system, seamlessly integrating with ' +
             'Node.js backend services and custom Google OAuth / Passport.js flows.',
         },
         {
-          skills: ['distributed', 'node-bun'],
+          skills: ['distributed', 'node-bun', 'javascript'],
           text:
             'Utilized Apache Kafka for event streaming and distributed messaging to ' +
             'support high-throughput, decoupled microservices containerized with ' +
             'Docker and Kubernetes.',
         },
         {
-          skills: ['leadership', 'ts-js', 'node-bun'],
+          skills: ['leadership', 'typescript', 'javascript', 'node-bun'],
           text:
             'Served as a go-to Subject Matter Expert (SME) and technical mentor ' +
             'across distributed teams; partnered directly with company founders to ' +
@@ -296,13 +296,13 @@ export const PORTFOLIO_DATA = {
         'Vue.js',
         'React',
         'TypeScript',
+        'JavaScript',
         'PostgreSQL',
         'Redis',
         'Elasticsearch',
         'Kafka',
         'Docker',
         'Kubernetes',
-        'AWS',
         'Jest',
       ],
     },
@@ -315,14 +315,14 @@ export const PORTFOLIO_DATA = {
       era: 'primary',
       highlights: [
         {
-          skills: ['leadership', 'ts-js', 'react', 'node-bun'],
+          skills: ['leadership', 'javascript', 'react', 'node-bun'],
           text:
             'Taught an intensive 6-month full-stack software development bootcamp ' +
             '(MongoDB, Express, React, Node.js, GraphQL) to a cohort of 25+ ' +
             'aspiring developers.',
         },
         {
-          skills: ['leadership', 'react', 'node-bun', 'sql'],
+          skills: ['leadership', 'react', 'node-bun', 'sql', 'javascript'],
           text:
             'Provided live architectural instruction, code reviews, debugging ' +
             'mentorship, and reference implementations covering SQL/NoSQL data ' +
@@ -360,7 +360,7 @@ export const PORTFOLIO_DATA = {
             'database optimization guidelines for the Lead DBA.',
         },
         {
-          skills: ['leadership', 'frontend', 'ts-js'],
+          skills: ['leadership', 'frontend', 'javascript'],
           text:
             'Led technical discovery conversations directly with stakeholders and ' +
             'end-users to uncover root constraints, and flexibly transitioned from ' +
@@ -393,7 +393,7 @@ export const PORTFOLIO_DATA = {
             'microservices with Java, Spring Framework, and Apache Kafka.',
         },
         {
-          skills: ['react', 'ts-js', 'frontend'],
+          skills: ['react', 'javascript', 'frontend'],
           text:
             'Assisted with front-end SPA architecture using React, Redux, and Rollup.',
         },
@@ -410,7 +410,7 @@ export const PORTFOLIO_DATA = {
       era: 'primary',
       highlights: [
         {
-          skills: ['ts-js', 'frontend', 'performance'],
+          skills: ['javascript', 'frontend', 'performance'],
           text:
             'Re-architected a data-intensive PDF generation pipeline using Web ' +
             'Workers to offload heavy JSON payload parsing and HTML DOM composition ' +
@@ -418,7 +418,7 @@ export const PORTFOLIO_DATA = {
             '5+ minute timeouts to a few seconds.',
         },
         {
-          skills: ['ts-js', 'performance'],
+          skills: ['javascript', 'performance'],
           text:
             'Authored a custom JavaScript profiler to dynamically instrument function ' +
             'calls and isolate memory leaks caused by pseudo-Java OOP anti-patterns ' +
@@ -513,14 +513,14 @@ export const PORTFOLIO_DATA = {
       era: 'primary',
       highlights: [
         {
-          skills: ['leadership', 'ts-js'],
+          skills: ['leadership', 'javascript'],
           text:
             'Drove the adoption of modern engineering practices by establishing ' +
             'Test-Driven Development (TDD) as a team standard and leading the ' +
             'migration from CVS to Git.',
         },
         {
-          skills: ['ts-js', 'frontend', 'leadership'],
+          skills: ['javascript', 'frontend', 'leadership'],
           text:
             'Architected core components for an internal AngularJS UI library ' +
             '(UI Bootstrap) used across the enterprise, applying design patterns for ' +
@@ -546,7 +546,7 @@ export const PORTFOLIO_DATA = {
             'key operations from over 5 minutes to under 10 seconds.',
         },
         {
-          skills: ['ts-js', 'frontend', 'leadership'],
+          skills: ['javascript', 'frontend', 'leadership'],
           text:
             'Introduced modern frontend architecture patterns including LESS for ' +
             'modular stylesheets and reactive data-binding UIs, delivering critical ' +
@@ -591,7 +591,7 @@ export const PORTFOLIO_DATA = {
       era: 'primary',
       highlights: [
         {
-          skills: ['csharp', 'ts-js', 'leadership'],
+          skills: ['csharp', 'javascript', 'leadership'],
           text:
             'Mentored the full-time engineering team in modern JavaScript, jQuery, ' +
             'and C# LINQ patterns while maintaining mission-critical ASP.NET ' +
@@ -652,7 +652,7 @@ export const PORTFOLIO_DATA = {
       era: 'early',
       highlights: [
         {
-          skills: ['frontend', 'ts-js', 'csharp'],
+          skills: ['frontend', 'javascript', 'csharp'],
           text:
             'Redesigned high-volume warehouse and logistics data-entry applications ' +
             'with full keyboard-driven navigation and real-time audio feedback cues, ' +
@@ -813,7 +813,7 @@ export const PORTFOLIO_DATA = {
         'modules built with zero-dependency TypeScript architecture.',
       liveUrl: null,
       repoUrl: 'https://github.com/cstroliadavis/vscode-tailor',
-      skills: ['ts-js', 'node-bun', 'frontend'],
+      skills: ['typescript', 'javascript', 'node-bun', 'frontend'],
       tags: ['TypeScript', 'VS Code API', 'Webviews', 'Zero-Bloat'],
     },
     {
@@ -827,7 +827,7 @@ export const PORTFOLIO_DATA = {
         'for Bun and TypeScript.',
       liveUrl: null,
       repoUrl: 'https://github.com/cstroliadavis/logging',
-      skills: ['ts-js', 'node-bun', 'distributed'],
+      skills: ['typescript', 'javascript', 'node-bun', 'distributed'],
       tags: ['TypeScript', 'Bun', 'TC39 Decorators', 'AsyncLocalStorage'],
     },
     {
@@ -840,7 +840,7 @@ export const PORTFOLIO_DATA = {
         'serializer engineered for Bun and modern JavaScript runtimes.',
       liveUrl: null,
       repoUrl: 'https://github.com/cstroliadavis/csv-lib',
-      skills: ['ts-js', 'node-bun', 'performance'],
+      skills: ['typescript', 'javascript', 'node-bun', 'performance'],
       tags: ['TypeScript', 'Bun', 'Web Streams', 'Zero-Dependency'],
     },
     {
@@ -853,7 +853,7 @@ export const PORTFOLIO_DATA = {
         'triggering and smart positional argument assignment running on Bun.',
       liveUrl: null,
       repoUrl: 'https://github.com/cstroliadavis/coliner',
-      skills: ['ts-js', 'node-bun'],
+      skills: ['typescript', 'javascript', 'node-bun'],
       tags: ['TypeScript', 'Bun', 'CLI Architecture'],
     },
     {
@@ -866,7 +866,7 @@ export const PORTFOLIO_DATA = {
         'agent memory with dynamic typing and self-modifying rule governance.',
       liveUrl: null,
       repoUrl: 'https://github.com/cstroliadavis/mcp-concept-mem',
-      skills: ['ai-mcp', 'ts-js', 'node-bun'],
+      skills: ['ai-mcp', 'typescript', 'javascript', 'node-bun'],
       tags: ['MCP', 'Agentic AI', 'TypeScript', 'Memory Architecture'],
     },
     {
@@ -879,7 +879,7 @@ export const PORTFOLIO_DATA = {
         'with closure-based TypeScript factories on Bun.',
       liveUrl: null,
       repoUrl: 'https://github.com/cstroliadavis/s20',
-      skills: ['ts-js', 'node-bun'],
+      skills: ['typescript', 'javascript', 'node-bun'],
       tags: ['TypeScript', 'Bun', 'CLI'],
     },
     {
@@ -893,7 +893,7 @@ export const PORTFOLIO_DATA = {
         'IndexedDB offline cart persistence, and Stripe checkout integration.',
       liveUrl: null,
       repoUrl: 'https://github.com/cstroliadavis/shop-shop',
-      skills: ['react', 'ts-js', 'node-bun', 'frontend'],
+      skills: ['react', 'javascript', 'node-bun', 'frontend'],
       tags: ['React', 'Redux Toolkit', 'GraphQL', 'Stripe', 'MongoDB'],
     },
     {
@@ -907,7 +907,7 @@ export const PORTFOLIO_DATA = {
         'lightbox previews.',
       liveUrl: 'https://cstroliadavis.github.io/photo-port/',
       repoUrl: 'https://github.com/cstroliadavis/photo-port',
-      skills: ['react', 'ts-js', 'frontend'],
+      skills: ['react', 'javascript', 'frontend'],
       tags: ['React', 'SPA', 'Live Demo', 'edX Curriculum'],
     },
   ],
@@ -918,8 +918,12 @@ export const PORTFOLIO_DATA = {
       label: 'All Experience & Projects',
     },
     {
-      id: 'ts-js',
-      label: 'TypeScript & JavaScript',
+      id: 'typescript',
+      label: 'TypeScript',
+    },
+    {
+      id: 'javascript',
+      label: 'JavaScript',
     },
     {
       id: 'node-bun',
