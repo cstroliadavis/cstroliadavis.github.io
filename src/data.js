@@ -141,7 +141,7 @@ export const PORTFOLIO_DATA = {
             'costly backend cloud compute calls.',
         },
         {
-          skills: ['SQL Server', 'C#', '.NET'],
+          skills: ['SQL Server', 'SQL', 'C#', '.NET'],
           text:
             'Diagnosed and resolved a severe database performance bottleneck in a ' +
             'multi-tenant publishing pipeline; re-architected legacy SQL Server query ' +
@@ -150,12 +150,18 @@ export const PORTFOLIO_DATA = {
             'time from hours to under 2 minutes and eliminating daily timeout crashes.',
         },
         {
-          skills: ['C#', '.NET', 'Technical Leadership'],
+          skills: [
+            'C#',
+            '.NET',
+            'REST APIs',
+            'OpenAPI',
+            'Technical Leadership',
+          ],
           text:
             'Retained for a dedicated 3-month contract extension as technical lead to ' +
             'research, design, and deliver a high-security, two-way C# / .NET REST ' +
-            'Web API Proof of Concept (POC) with custom security hooks for sensitive ' +
-            'enterprise client data exchange.',
+            'Web API Proof of Concept (POC) with OpenAPI contracts and custom security ' +
+            'hooks for sensitive enterprise client data exchange.',
         },
         {
           skills: [
@@ -173,7 +179,7 @@ export const PORTFOLIO_DATA = {
             'anti-patterns and mentoring engineers on maintainable coding standards.',
         },
         {
-          skills: ['MCP / Agentic AI', 'TypeScript', 'JavaScript', 'Bun'],
+          skills: ['MCP / Agentic AI', 'TypeScript', 'JavaScript', 'Bun', 'CSV'],
           text:
             'Designed and published zero-dependency TypeScript/Bun developer tooling ' +
             '(vscode-tailor, logging, csv-lib, coliner, s20) and Model Context ' +
@@ -188,7 +194,11 @@ export const PORTFOLIO_DATA = {
         'AngularJS',
         'C#',
         '.NET',
+        'REST APIs',
+        'OpenAPI',
         'SQL Server',
+        'SQL',
+        'CSV',
         'Web Workers',
         'Bun',
         'Vite',
@@ -218,10 +228,10 @@ export const PORTFOLIO_DATA = {
             'accessible user experience.',
         },
         {
-          skills: ['Node.js', 'Java', 'TypeScript'],
+          skills: ['Node.js', 'Java', 'TypeScript', 'REST APIs', 'OpenAPI'],
           text:
             'Collaborated with backend engineers to design and integrate RESTful API ' +
-            'service endpoints across Node.js and Java services.',
+            'service endpoints and OpenAPI schemas across Node.js and Java services.',
         },
       ],
       location: 'Columbus, OH (Hybrid)',
@@ -229,6 +239,8 @@ export const PORTFOLIO_DATA = {
         'React',
         'TypeScript',
         'Node.js',
+        'REST APIs',
+        'OpenAPI',
         'Java',
         'Vite',
         'Vitest',
@@ -266,7 +278,7 @@ export const PORTFOLIO_DATA = {
             'securing zero-downtime automated deployments across 400+ radio stations.',
         },
         {
-          skills: ['PostgreSQL', 'Elasticsearch', 'Node.js', 'JavaScript'],
+          skills: ['PostgreSQL', 'SQL', 'Elasticsearch', 'Node.js', 'JavaScript'],
           text:
             'Engineered and executed a multi-month data migration for Audacy.com, ' +
             'rewriting 100,000+ records across PostgreSQL and Elasticsearch to ' +
@@ -279,6 +291,8 @@ export const PORTFOLIO_DATA = {
             'TypeScript',
             'JavaScript',
             'Node.js',
+            'REST APIs',
+            'OpenAPI',
             'Kafka',
             'OAuth',
             'Datadog',
@@ -288,21 +302,24 @@ export const PORTFOLIO_DATA = {
           ],
           text:
             'Built the React and TypeScript frontend for a centralized internal SSO, ' +
-            'role, and privilege-registration platform integrated with Node.js ' +
-            'microservices, Apache Kafka event streams, custom Google OAuth / ' +
-            'Passport.js callbacks, and Datadog distributed telemetry across AWS ' +
-            '(EC2, S3, OpenSearch, ElastiCache, Kubernetes) and local Docker stacks.',
+            'role, and privilege-registration platform integrated with Node.js REST ' +
+            'microservices, OpenAPI specifications, Apache Kafka event streams, ' +
+            'custom Google OAuth / Passport.js callbacks, and Datadog distributed ' +
+            'telemetry across AWS (EC2, S3, OpenSearch, ElastiCache, Kubernetes) and ' +
+            'local Docker stacks.',
         },
         {
           skills: [
             'Technical Leadership',
+            'Python',
             'TypeScript',
             'JavaScript',
             'Node.js',
           ],
           text:
-            'Served as a go-to Subject Matter Expert (SME) and technical mentor; ' +
-            'partnered with founders before the pandemic shift to establish ' +
+            'Served as a go-to Subject Matter Expert (SME), technical mentor, and ' +
+            'regular pull-request reviewer for Python deployment and automation ' +
+            'scripts; partnered with founders before the pandemic shift to establish ' +
             'high-trust remote engineering practices—initiating bi-weekly paid team ' +
             'game days and virtual coffee chats that strengthened cross-team cohesion ' +
             'and velocity.',
@@ -317,7 +334,10 @@ export const PORTFOLIO_DATA = {
         'TypeScript',
         'JavaScript',
         'Handlebars.js',
+        'REST APIs',
+        'OpenAPI',
         'PostgreSQL',
+        'SQL',
         'Redis',
         'Elasticsearch',
         'Kafka',
@@ -326,6 +346,7 @@ export const PORTFOLIO_DATA = {
         'Docker',
         'Kubernetes',
         'AWS',
+        'Python',
         'Technical Leadership',
       ],
     },
@@ -394,7 +415,7 @@ export const PORTFOLIO_DATA = {
         {
           skills: [
             'PostgreSQL',
-            'EDB Postgres',
+            'SQL',
             'Oracle PL/SQL',
             'Technical Leadership',
           ],
@@ -436,7 +457,7 @@ export const PORTFOLIO_DATA = {
       location: 'Montgomery, OH',
       technologies: [
         'PostgreSQL',
-        'EDB Postgres',
+        'SQL',
         'Oracle PL/SQL',
         'JavaScript',
         'Dojo Toolkit',
@@ -453,10 +474,10 @@ export const PORTFOLIO_DATA = {
       dateRange: 'Dec 2017 – Feb 2018',
       highlights: [
         {
-          skills: ['Java', 'Spring Boot', 'DB2 SQL', 'Kafka'],
+          skills: ['Java', 'Spring Boot', 'REST APIs', 'DB2 SQL', 'Kafka'],
           text:
-            'Engineered backend microservices in Java, Spring Boot, DB2, and Apache ' +
-            'Kafka for Kroger’s enterprise product taxonomy platform, managing ' +
+            'Engineered backend REST microservices in Java, Spring Boot, DB2, and ' +
+            'Apache Kafka for Kroger’s enterprise product taxonomy platform, managing ' +
             'regional product categorization and pricing rules.',
         },
         {
@@ -482,6 +503,7 @@ export const PORTFOLIO_DATA = {
         'Redux',
         'Rollup',
         'JavaScript',
+        'REST APIs',
         'Java',
         'Spring Boot',
         'DB2 SQL',
@@ -530,15 +552,15 @@ export const PORTFOLIO_DATA = {
         },
         {
           skills: [
-            'Java',
             'Groovy',
+            'Java',
             'Spring Boot',
             'Oracle SQL',
             'Selenium',
             'Docker',
           ],
           text:
-            'Navigated a complex backend ecosystem (Java, Groovy, Spring Boot, ' +
+            'Navigated a complex backend ecosystem (Groovy, Java, Spring Boot, ' +
             'Apache, Selenium, Docker) backed by Oracle DB and a multi-dimensional ' +
             'business-rules graph database (n-cube), reverse-engineering undocumented ' +
             'data relationships and documenting architectural anti-patterns.',
@@ -552,8 +574,8 @@ export const PORTFOLIO_DATA = {
         'Vue.js',
         'React',
         'Aurelia',
-        'Java',
         'Groovy',
+        'Java',
         'Spring Boot',
         'Oracle SQL',
         'Selenium',
@@ -569,7 +591,7 @@ export const PORTFOLIO_DATA = {
       dateRange: 'Jan 2015 – Dec 2015',
       highlights: [
         {
-          skills: ['SQL Server', 'Technical Leadership'],
+          skills: ['SQL Server', 'SQL', 'Technical Leadership'],
           text:
             'Executed high-impact consulting engagements, including optimizing a ' +
             'SQL Server database for the Cincinnati Reds while mentoring their ' +
@@ -585,7 +607,7 @@ export const PORTFOLIO_DATA = {
         },
       ],
       location: 'Cincinnati, OH',
-      technologies: ['SQL Server', 'JavaScript', 'Technical Leadership'],
+      technologies: ['SQL Server', 'SQL', 'JavaScript', 'Technical Leadership'],
     },
     {
       id: 'cincinnati-insurance',
@@ -595,7 +617,7 @@ export const PORTFOLIO_DATA = {
       dateRange: 'Jan 2014 – Dec 2014',
       highlights: [
         {
-          skills: ['C#', '.NET', 'SOAP / REST APIs', 'Technical Leadership'],
+          skills: ['C#', '.NET', 'REST APIs', 'SOAP', 'Technical Leadership'],
           text:
             'Proposed and championed the Adapter Pattern as the organization-wide ' +
             'go-forward C# architecture for decoupling third-party API integrations.',
@@ -608,7 +630,7 @@ export const PORTFOLIO_DATA = {
             'thread blocking and improve responsiveness.',
         },
         {
-          skills: ['C#', '.NET', 'SOAP / REST APIs'],
+          skills: ['C#', '.NET', 'REST APIs', 'SOAP'],
           text:
             'Reverse-engineered and documented an external partner web service whose ' +
             'production payloads contradicted its official specification, preventing ' +
@@ -621,7 +643,8 @@ export const PORTFOLIO_DATA = {
         '.NET',
         'WPF',
         'WinForms',
-        'SOAP / REST APIs',
+        'REST APIs',
+        'SOAP',
         'Technical Leadership',
       ],
     },
@@ -670,7 +693,7 @@ export const PORTFOLIO_DATA = {
       dateRange: 'Jul 2012 – Jun 2013',
       highlights: [
         {
-          skills: ['C#', 'VB.NET', 'ASP.NET', 'SQL Server'],
+          skills: ['C#', 'VB.NET', 'ASP.NET', 'SQL Server', 'SQL'],
           text:
             'Dramatically improved clinical metrics reporting (PMRS) performance ' +
             'across C#, VB.NET, and SQL Server code paths, reducing processing times ' +
@@ -690,6 +713,7 @@ export const PORTFOLIO_DATA = {
         'VB.NET',
         'ASP.NET',
         'SQL Server',
+        'SQL',
         'JavaScript',
         'Knockout.js',
         'LESS',
@@ -703,7 +727,7 @@ export const PORTFOLIO_DATA = {
       dateRange: 'Mar 2012 – Jul 2012',
       highlights: [
         {
-          skills: ['XSLT 1.0', 'XML / CSV', 'SharePoint', 'JavaScript'],
+          skills: ['XSLT 1.0', 'XML', 'SharePoint', 'JavaScript'],
           text:
             'Re-architected a failing SharePoint and XML/XSLT 1.0 enterprise ' +
             'reporting system as the sole developer, refactoring unmaintainable ' +
@@ -718,7 +742,7 @@ export const PORTFOLIO_DATA = {
         },
       ],
       location: 'Cincinnati, OH',
-      technologies: ['XSLT 1.0', 'XML / CSV', 'SharePoint', 'JavaScript'],
+      technologies: ['XSLT 1.0', 'XML', 'SharePoint', 'JavaScript'],
     },
     {
       id: 'cchmc-2011',
@@ -735,6 +759,7 @@ export const PORTFOLIO_DATA = {
             'JavaScript',
             'jQuery',
             'SQL Server',
+            'SQL',
             'Technical Leadership',
           ],
           text:
@@ -751,6 +776,7 @@ export const PORTFOLIO_DATA = {
         'JavaScript',
         'jQuery',
         'SQL Server',
+        'SQL',
         'Technical Leadership',
       ],
     },
@@ -767,6 +793,7 @@ export const PORTFOLIO_DATA = {
             'C#',
             '.NET',
             'SQL Server',
+            'SQL',
             'JavaScript',
           ],
           text:
@@ -775,7 +802,15 @@ export const PORTFOLIO_DATA = {
             'architecture, and directing contract engineers.',
         },
         {
-          skills: ['C#', '.NET', 'SQL Server', 'ETL Pipelines', 'XML / CSV'],
+          skills: [
+            'C#',
+            '.NET',
+            'SQL Server',
+            'SQL',
+            'ETL Pipelines',
+            'XML',
+            'CSV',
+          ],
           text:
             'Architected automated B2B ETL pipelines in C# and SQL Server that ' +
             'ingested SFTP feeds (XML, CSV, structured text) and parsed Microsoft ' +
@@ -783,7 +818,7 @@ export const PORTFOLIO_DATA = {
             'intervention across nationwide service dispatch workflows.',
         },
         {
-          skills: ['SQL Server', 'SSRS'],
+          skills: ['SQL Server', 'SQL', 'SSRS'],
           text:
             'Partnered with the DBA to tune SQL Server performance and engineered ' +
             'executive operational reporting suites using SQL Server Reporting ' +
@@ -795,9 +830,11 @@ export const PORTFOLIO_DATA = {
         'C#',
         '.NET',
         'SQL Server',
+        'SQL',
         'SSRS',
         'ETL Pipelines',
-        'XML / CSV',
+        'XML',
+        'CSV',
         'JavaScript',
         'Technical Leadership',
       ],
@@ -835,7 +872,7 @@ export const PORTFOLIO_DATA = {
       dateRange: 'Oct 2004 – Feb 2005',
       highlights: [
         {
-          skills: ['C#', '.NET', 'SQL Server', 'Secure Systems'],
+          skills: ['C#', '.NET', 'SQL Server', 'SQL', 'Secure Systems'],
           text:
             'Developed a secure military communications application in C# and .NET ' +
             'at Wright-Patterson Air Force Base (WPAFB) for rapidly disseminating ' +
@@ -843,7 +880,7 @@ export const PORTFOLIO_DATA = {
         },
       ],
       location: 'Dayton, OH (WPAFB)',
-      technologies: ['C#', '.NET', 'SQL Server', 'Secure Systems'],
+      technologies: ['C#', '.NET', 'SQL Server', 'SQL', 'Secure Systems'],
     },
     {
       id: 'cdo-technologies',
@@ -853,14 +890,14 @@ export const PORTFOLIO_DATA = {
       dateRange: 'Jan 2000 – Aug 2004',
       highlights: [
         {
-          skills: ['SQL Server', 'Dynamic SQL'],
+          skills: ['SQL Server', 'SQL', 'Dynamic SQL'],
           text:
             'Designed a metadata-driven dynamic SQL search engine that inspected ' +
             'schema topology to construct optimal 3+ table JOIN trees on-the-fly ' +
             'with type-aware filtering and red-teamed SQL injection protection.',
         },
         {
-          skills: ['SQL Server', 'ODBC / ETL', 'XML / CSV'],
+          skills: ['SQL Server', 'SQL', 'ODBC', 'ETL Pipelines', 'XML', 'CSV'],
           text:
             'Architected automated data scrubbing and normalization pipelines to ' +
             'consolidate historical records from 300+ legacy client systems (Excel, ' +
@@ -886,12 +923,15 @@ export const PORTFOLIO_DATA = {
       location: 'Dayton, OH (WPAFB)',
       technologies: [
         'SQL Server',
+        'SQL',
         'Dynamic SQL',
         'VB.NET',
         'C#',
         'Classic ASP / VBScript',
-        'ODBC / ETL',
-        'XML / CSV',
+        'ODBC',
+        'ETL Pipelines',
+        'XML',
+        'CSV',
         'Technical Leadership',
       ],
     },
@@ -956,7 +996,7 @@ export const PORTFOLIO_DATA = {
         'modules built with zero-dependency TypeScript architecture.',
       liveUrl: null,
       repoUrl: 'https://github.com/cstroliadavis/vscode-tailor',
-      skills: ['TypeScript', 'JavaScript', 'Bun', 'HTML5 / CSS', 'XML / CSV'],
+      skills: ['TypeScript', 'JavaScript', 'Bun', 'HTML5 / CSS', 'CSV'],
       tags: ['TypeScript', 'VS Code API', 'Webviews', 'Zero-Bloat'],
     },
     {
@@ -983,7 +1023,7 @@ export const PORTFOLIO_DATA = {
         'serializer engineered for Bun and modern JavaScript runtimes.',
       liveUrl: null,
       repoUrl: 'https://github.com/cstroliadavis/csv-lib',
-      skills: ['TypeScript', 'JavaScript', 'Bun', 'XML / CSV'],
+      skills: ['TypeScript', 'JavaScript', 'Bun', 'CSV'],
       tags: ['TypeScript', 'Bun', 'Web Streams', 'Zero-Dependency'],
     },
     {
@@ -1072,95 +1112,99 @@ export const PORTFOLIO_DATA = {
   skillCompetencies: [
     { name: 'JavaScript', proficiency: 98 },
     { name: 'TypeScript', proficiency: 96 },
-    { name: 'SQL Server', proficiency: 95 },
-    { name: 'SQL', proficiency: 95 },
-    { name: 'Dynamic SQL', proficiency: 95 },
+    { name: 'SQL', proficiency: 96 },
+    { name: 'PostgreSQL', proficiency: 95 },
+    { name: 'HTML5 / CSS', proficiency: 95 },
     { name: 'Technical Leadership', proficiency: 95 },
-    { name: 'PostgreSQL', proficiency: 94 },
     { name: 'Node.js', proficiency: 94 },
-    { name: 'Web Workers', proficiency: 94 },
+    { name: 'SQL Server', proficiency: 93 },
+    { name: 'Dynamic SQL', proficiency: 93 },
     { name: 'Express', proficiency: 93 },
     { name: 'Vue.js', proficiency: 92 },
-    { name: 'HTML5 / CSS', proficiency: 92 },
-    { name: 'MCP / Agentic AI', proficiency: 90 },
+    { name: 'REST APIs', proficiency: 92 },
+    { name: 'CSV', proficiency: 92 },
     { name: 'TDD', proficiency: 90 },
     { name: 'Git', proficiency: 90 },
     { name: 'Accessibility / UX', proficiency: 90 },
-    { name: 'ETL Pipelines', proficiency: 90 },
     { name: 'Workflow Automation', proficiency: 90 },
+    { name: 'AngularJS', proficiency: 89 },
     { name: 'C#', proficiency: 88 },
     { name: '.NET', proficiency: 88 },
-    { name: 'VB.NET', proficiency: 88 },
-    { name: 'AngularJS', proficiency: 88 },
     { name: 'jQuery', proficiency: 88 },
-    { name: 'SOAP / REST APIs', proficiency: 88 },
-    { name: 'XML / CSV', proficiency: 88 },
     { name: 'Mob Programming', proficiency: 88 },
     { name: 'Process Engineering', proficiency: 88 },
     { name: 'React', proficiency: 86 },
+    { name: 'OpenAPI', proficiency: 86 },
     { name: 'ASP.NET', proficiency: 86 },
-    { name: 'LINQ', proficiency: 86 },
     { name: 'Handlebars.js', proficiency: 86 },
+    { name: 'LESS', proficiency: 86 },
+    { name: 'XML', proficiency: 86 },
+    { name: 'VB.NET', proficiency: 85 },
     { name: 'Bun', proficiency: 85 },
     { name: 'Redux', proficiency: 85 },
-    { name: 'LESS', proficiency: 85 },
+    { name: 'Redis', proficiency: 85 },
     { name: 'XSLT 1.0', proficiency: 85 },
-    { name: 'ODBC / ETL', proficiency: 85 },
     { name: 'VBA', proficiency: 85 },
     { name: 'Classic ASP / VBScript', proficiency: 85 },
     { name: 'Excel DSS', proficiency: 85 },
     { name: 'Vite', proficiency: 84 },
     { name: 'Vitest', proficiency: 84 },
-    { name: 'SSRS', proficiency: 84 },
-    { name: 'Storybook', proficiency: 82 },
-    { name: 'Redis', proficiency: 82 },
+    { name: 'LINQ', proficiency: 82 },
     { name: 'OAuth', proficiency: 82 },
     { name: 'WinForms', proficiency: 82 },
     { name: 'MS Access', proficiency: 82 },
     { name: 'Secure Systems', proficiency: 82 },
     { name: 'Docker', proficiency: 80 },
     { name: 'Rollup', proficiency: 80 },
+    { name: 'Storybook', proficiency: 78 },
     { name: 'WPF', proficiency: 78 },
     { name: 'GraphQL', proficiency: 78 },
-    { name: 'EDB Postgres', proficiency: 78 },
     { name: 'MongoDB', proficiency: 76 },
     { name: 'Elasticsearch', proficiency: 76 },
     { name: 'Datadog', proficiency: 76 },
-    { name: 'Stripe', proficiency: 75 },
+    { name: 'SSRS', proficiency: 75 },
     { name: 'Kibana', proficiency: 75 },
+    { name: 'Web Workers', proficiency: 74 },
     { name: 'Dojo Toolkit', proficiency: 74 },
+    { name: 'Groovy', proficiency: 72 },
     { name: 'Selenium', proficiency: 72 },
-    { name: 'Teradata Data Warehouse', proficiency: 72 },
-    { name: 'Oracle PL/SQL', proficiency: 72 },
     { name: 'Knockout.js', proficiency: 72 },
-    { name: 'Aurelia', proficiency: 70 },
+    { name: 'ETL Pipelines', proficiency: 70 },
+    { name: 'ODBC', proficiency: 70 },
     { name: 'DB2 SQL', proficiency: 70 },
-    { name: 'Oracle SQL', proficiency: 70 },
     { name: 'SharePoint', proficiency: 70 },
+    { name: 'MCP / Agentic AI', proficiency: 68 },
+    { name: 'Python', proficiency: 68 },
     { name: 'Kafka', proficiency: 68 },
     { name: 'AWS', proficiency: 68 },
     { name: 'Kubernetes', proficiency: 65 },
-    { name: 'Java', proficiency: 65 },
-    { name: 'Spring Boot', proficiency: 62 },
-    { name: 'Groovy', proficiency: 60 },
+    { name: 'Java', proficiency: 64 },
+    { name: 'Stripe', proficiency: 62 },
+    { name: 'Spring Boot', proficiency: 60 },
+    { name: 'Oracle PL/SQL', proficiency: 60 },
+    { name: 'Oracle SQL', proficiency: 58 },
+    { name: 'SOAP', proficiency: 56 },
+    { name: 'Aurelia', proficiency: 50 },
+    { name: 'Teradata Data Warehouse', proficiency: 48 },
   ],
 
   skillFilters: [
     { id: 'all', label: 'All Experience & Projects' },
     { id: 'TypeScript', label: 'TypeScript' },
     { id: 'JavaScript', label: 'JavaScript' },
-    { id: 'Node.js', label: 'Node.js' },
-    { id: 'Bun', label: 'Bun' },
-    { id: 'Vue.js', label: 'Vue.js' },
-    { id: 'React', label: 'React' },
+    { id: 'SQL', label: 'SQL' },
     { id: 'PostgreSQL', label: 'PostgreSQL' },
+    { id: 'HTML5 / CSS', label: 'HTML5 / CSS' },
+    { id: 'Node.js', label: 'Node.js' },
     { id: 'SQL Server', label: 'SQL Server' },
+    { id: 'Vue.js', label: 'Vue.js' },
+    { id: 'REST APIs', label: 'REST APIs' },
     { id: 'C#', label: 'C#' },
     { id: '.NET', label: '.NET' },
+    { id: 'React', label: 'React' },
+    { id: 'OpenAPI', label: 'OpenAPI' },
+    { id: 'Bun', label: 'Bun' },
     { id: 'Redis', label: 'Redis' },
-    { id: 'Docker', label: 'Docker' },
-    { id: 'Web Workers', label: 'Web Workers' },
-    { id: 'MCP / Agentic AI', label: 'MCP / Agentic AI' },
     { id: 'Technical Leadership', label: 'Technical Leadership' },
   ],
 
