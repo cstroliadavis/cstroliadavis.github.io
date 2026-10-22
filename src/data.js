@@ -131,6 +131,13 @@ export const PORTFOLIO_DATA = {
       era: 'primary',
       highlights: [
         {
+          skills: ['react', 'typescript', 'javascript', 'frontend'],
+          text:
+            'Recruited for an initial 6-month engagement specifically to bridge ' +
+            'deep legacy AngularJS expertise with modern React and TypeScript, ' +
+            'porting core enterprise workflows from AngularJS to React.',
+        },
+        {
           skills: ['typescript', 'javascript', 'frontend', 'performance'],
           text:
             'Architected a reusable Web Worker Higher-Order Function (HOF) wrapper ' +
@@ -149,33 +156,25 @@ export const PORTFOLIO_DATA = {
             'time from hours to under 2 minutes and eliminating daily timeout crashes.',
         },
         {
+          skills: ['csharp', 'leadership'],
+          text:
+            'Retained for a dedicated 3-month contract extension as technical lead to ' +
+            'research, design, and deliver a high-security, two-way C# / .NET REST ' +
+            'Web API Proof of Concept (POC) with custom security hooks for sensitive ' +
+            'enterprise client data exchange.',
+        },
+        {
           skills: ['typescript', 'javascript', 'frontend', 'leadership'],
           text:
-            'Engineered a low-profile search component with multi-page highlighting, ' +
-            'leveraging existing AngularJS and TypeScript architecture to avoid a ' +
-            'costly rewrite while introducing modern coding standards to guide future ' +
-            'architectural shifts.',
-        },
-        {
-          skills: ['csharp', 'typescript', 'leadership'],
-          text:
-            'Stepped in as technical lead to research, design, and deliver a ' +
-            'high-priority, secure C# / .NET REST API integration Proof of Concept ' +
-            '(POC) with custom security hooks to satisfy urgent enterprise customer ' +
-            'data exchange requirements.',
-        },
-        {
-          skills: ['typescript', 'javascript', 'csharp', 'leadership'],
-          text:
-            'Proactively improved the health of a 10+ year-old legacy codebase by ' +
-            'systematically replacing anti-patterns with clean, maintainable patterns ' +
-            'and enforcing higher code quality standards across multiple contract ' +
-            'extensions.',
+            'Engineered a low-profile search component with multi-page highlighting ' +
+            'and systematically modernized a 10+ year-old AngularJS and C#/.NET ' +
+            'codebase across multiple subsequent contract renewals—replacing ' +
+            'anti-patterns and mentoring engineers on maintainable coding standards.',
         },
         {
           skills: ['ai-mcp', 'typescript', 'javascript', 'node-bun'],
           text:
-            'Designed and published open-source TypeScript/Bun developer tooling ' +
+            'Designed and published zero-dependency TypeScript/Bun developer tooling ' +
             '(vscode-tailor, logging, csv-lib, coliner, s20) and Model Context ' +
             'Protocol (MCP) server architectures for hierarchical AI agent memory.',
         },
@@ -200,7 +199,7 @@ export const PORTFOLIO_DATA = {
       id: 'alined',
       title: 'Sr. React Developer',
 
-      company: 'ALINED Consulting Group, LLC',
+      company: 'ALINED Consulting Group, LLC (Client: JPMorgan Chase)',
       dateRange: 'Aug 2023 – Nov 2023',
       era: 'primary',
       highlights: [
@@ -238,18 +237,27 @@ export const PORTFOLIO_DATA = {
       id: 'swarm-solutions',
       title: 'Sr. JavaScript Developer',
 
-      company: 'Swarm Solutions',
+      company: 'Swarm Solutions (Client: Radio.com / Audacy.com)',
       dateRange: 'Mar 2019 – Jun 2023',
       era: 'primary',
       highlights: [
+        {
+          skills: ['node-bun', 'vue', 'javascript', 'frontend', 'distributed'],
+          text:
+            'Co-developed Project Unity (Clay CMS) on Node.js, Express, Vue.js, and ' +
+            'Handlebars backed by Fastly CDN—consolidating ~400 independent station ' +
+            'Drupal websites into a single multi-tenant platform where shared ' +
+            'national articles dynamically rendered inside each station’s custom ' +
+            'theme. Engineered a hybrid SSR + SPA architecture using Handlebars for ' +
+            'SEO-critical server rendering wrapped by Vue.js client interactivity.',
+        },
         {
           skills: ['distributed', 'node-bun', 'javascript', 'performance'],
           text:
             'Engineered a Redis-backed semaphore queue manager to eliminate ' +
             'thundering-herd database deadlocks and connection pool exhaustion when ' +
             'spinning up 40+ load-balanced application instances simultaneously, ' +
-            'securing zero-downtime automated deployments for a platform serving ' +
-            'millions of users across 400+ stations.',
+            'securing zero-downtime automated deployments across 400+ radio stations.',
         },
         {
           skills: ['sql', 'distributed', 'node-bun', 'javascript'],
@@ -260,50 +268,41 @@ export const PORTFOLIO_DATA = {
             'critical CMS architectural constraint with zero downtime.',
         },
         {
-          skills: ['node-bun', 'vue', 'javascript', 'distributed'],
+          skills: ['react', 'typescript', 'javascript', 'node-bun', 'distributed'],
           text:
-            'Co-developed a multi-tenant Node.js, Vue.js, and Handlebars publishing ' +
-            'platform (Clay CMS) backed by Fastly CDN, consolidating 400+ fragmented ' +
-            'legacy Drupal deployments into a unified architecture supporting ' +
-            'localized station feeds and canonical national publishing.',
-        },
-        {
-          skills: ['react', 'typescript', 'javascript', 'node-bun', 'frontend'],
-          text:
-            'Developed the React and TypeScript frontend for a federated ' +
-            'authentication and authorization system, seamlessly integrating with ' +
-            'Node.js backend services and custom Google OAuth / Passport.js flows.',
-        },
-        {
-          skills: ['distributed', 'node-bun', 'javascript'],
-          text:
-            'Utilized Apache Kafka for event streaming and distributed messaging to ' +
-            'support high-throughput, decoupled microservices containerized with ' +
-            'Docker and Kubernetes.',
+            'Built the React and TypeScript frontend for a centralized internal SSO, ' +
+            'role, and privilege-registration platform integrated with Node.js ' +
+            'microservices, Apache Kafka event streams, custom Google OAuth / ' +
+            'Passport.js callbacks, and Datadog distributed telemetry across AWS ' +
+            '(EC2, S3, OpenSearch, ElastiCache, Kubernetes) and local Docker stacks.',
         },
         {
           skills: ['leadership', 'typescript', 'javascript', 'node-bun'],
           text:
-            'Served as a go-to Subject Matter Expert (SME) and technical mentor ' +
-            'across distributed teams; partnered directly with company founders to ' +
-            'shape high-trust, remote-first engineering practices that measurably ' +
-            'accelerated development velocity.',
+            'Served as a go-to Subject Matter Expert (SME) and technical mentor; ' +
+            'partnered with founders before the pandemic shift to establish ' +
+            'high-trust remote engineering practices—initiating bi-weekly paid team ' +
+            'game days and virtual coffee chats that strengthened cross-team cohesion ' +
+            'and velocity.',
         },
       ],
       location: 'Remote',
       technologies: [
         'Node.js',
+        'Express',
         'Vue.js',
         'React',
         'TypeScript',
         'JavaScript',
+        'Handlebars.js',
         'PostgreSQL',
         'Redis',
         'Elasticsearch',
         'Kafka',
+        'Datadog',
         'Docker',
         'Kubernetes',
-        'Jest',
+        'AWS (EC2, S3, OpenSearch, ElastiCache)',
       ],
     },
     {
@@ -345,7 +344,7 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: 'ingage-claritas',
-      title: 'Sr. Consultant',
+      title: 'Sr. Consultant & De Facto Technical Lead',
 
       company: 'Ingage Partners / Claritas',
       dateRange: 'Apr 2018 – Feb 2019',
@@ -354,28 +353,39 @@ export const PORTFOLIO_DATA = {
         {
           skills: ['sql', 'performance', 'leadership'],
           text:
-            'Rescued a stalled Oracle-to-EDB PostgreSQL migration by mastering native ' +
-            'JSONB and PostGIS internals, replacing fragile ad-hoc string parsing ' +
-            'with GIN/expression indexes and CTEs in stored procedures, and authoring ' +
-            'database optimization guidelines for the Lead DBA.',
+            'Mastered advanced PostgreSQL (PL/pgSQL, JSONB, PostGIS, GIN/expression ' +
+            'indexes, CTEs) within 2 weeks to rescue a stalled Oracle-to-EDB ' +
+            'Postgres migration—porting legacy Oracle PL/SQL stored procedures into ' +
+            'clean, maintainable pgSQL and coaching the in-house DBA on JSONB ' +
+            'indexing and query optimization.',
         },
         {
-          skills: ['leadership', 'frontend', 'javascript'],
+          skills: ['javascript', 'frontend', 'leadership'],
           text:
-            'Led technical discovery conversations directly with stakeholders and ' +
-            'end-users to uncover root constraints, and flexibly transitioned from ' +
-            'backend database engineering to take ownership of front-end architecture ' +
-            'and mentor in-house developers.',
+            'Pivoted from an initial Java backend assignment to untangle a complex ' +
+            'legacy Dojo Toolkit front-end that had stalled the team; reverse-engineered ' +
+            'undocumented Dojo widget lifecycles, unblocked fellow developers, and ' +
+            'advised leadership on a strategic roadmap to retire Dojo.',
+        },
+        {
+          skills: ['leadership', 'sql', 'javascript'],
+          text:
+            'Stepped up as de facto technical team lead across 6–8 contractors from ' +
+            'multiple staffing agencies, introducing weekly mob programming sessions ' +
+            'that unified frontend, backend, and database workflows—and was the sole ' +
+            'contractor retained for an extension to complete final delivery, ' +
+            'post-launch support, and full knowledge transfer (KT).',
         },
       ],
       location: 'Montgomery, OH',
       technologies: [
-        'PostgreSQL',
-        'PostGIS',
-        'JSONB',
-        'Oracle',
-        'SQL',
+        'PostgreSQL (PL/pgSQL, JSONB, PostGIS)',
+        'EDB Postgres',
+        'Oracle PL/SQL',
         'JavaScript',
+        'Dojo Toolkit',
+        'Java',
+        'Mob Programming',
       ],
     },
     {
@@ -387,25 +397,40 @@ export const PORTFOLIO_DATA = {
       era: 'primary',
       highlights: [
         {
-          skills: ['java', 'distributed'],
+          skills: ['java', 'distributed', 'sql'],
           text:
-            'Contributed to an enterprise taxonomy platform by building backend ' +
-            'microservices with Java, Spring Framework, and Apache Kafka.',
+            'Engineered backend microservices in Java, Spring Boot, DB2, and Apache ' +
+            'Kafka for Kroger’s enterprise product taxonomy platform, managing ' +
+            'regional product categorization and pricing rules.',
         },
         {
-          skills: ['react', 'javascript', 'frontend'],
+          skills: ['react', 'javascript', 'frontend', 'leadership'],
           text:
-            'Assisted with front-end SPA architecture using React, Redux, and Rollup.',
+            'Built the internal React, Redux, and Rollup front-end portal enabling ' +
+            'merchandising personnel to update taxonomy hierarchies in real time, ' +
+            'practicing ping-pong pair programming and mob programming while ' +
+            'operating real-time Kibana error-tracking dashboards across blue/green ' +
+            'and canary deployments.',
         },
       ],
       location: 'Blue Ash, OH',
-      technologies: ['React', 'Redux', 'Java', 'Spring', 'Kafka', 'Rollup'],
+      technologies: [
+        'React',
+        'Redux',
+        'Rollup',
+        'JavaScript',
+        'Java',
+        'Spring Boot',
+        'DB2 SQL',
+        'Kafka',
+        'Kibana',
+      ],
     },
     {
       id: 'gaig-2015',
       title: 'App Analysis & Development Specialist',
 
-      company: 'Great American Insurance Group',
+      company: 'Great American Insurance Group (Consultant-to-Perm)',
       dateRange: 'Oct 2015 – Dec 2017',
       era: 'primary',
       highlights: [
@@ -422,27 +447,38 @@ export const PORTFOLIO_DATA = {
           text:
             'Authored a custom JavaScript profiler to dynamically instrument function ' +
             'calls and isolate memory leaks caused by pseudo-Java OOP anti-patterns ' +
-            'in single-page applications, eliminating browser crashes during large ' +
-            'dataset processing.',
+            'in AngularJS single-page applications, eliminating browser crashes ' +
+            'during large dataset processing.',
+        },
+        {
+          skills: ['vue', 'react', 'javascript', 'frontend', 'leadership'],
+          text:
+            'Spearheaded an enterprise front-end framework evaluation comparing ' +
+            'Vue.js, React, and Aurelia—assessing developer ergonomics against ' +
+            'enterprise governance risk (identifying Vue’s superior DX alongside its ' +
+            'single-maintainer bus-factor risk at the time) to guide the ' +
+            'organization’s adoption of React.',
         },
         {
           skills: ['java', 'sql'],
           text:
-            'Navigated a complex backend rules ecosystem (Java, Groovy, Spring) ' +
-            'backed by Oracle DB and a multi-dimensional graph structure (n-cube), ' +
-            'reverse-engineering undocumented data relationships and documenting ' +
-            'architectural patterns for the engineering team.',
+            'Navigated a complex backend ecosystem (Java, Groovy, Spring Boot, ' +
+            'Apache, Selenium, Docker) backed by Oracle DB and a multi-dimensional ' +
+            'business-rules graph database (n-cube), reverse-engineering undocumented ' +
+            'data relationships and documenting architectural anti-patterns.',
         },
       ],
       location: 'Cincinnati, OH',
       technologies: [
         'JavaScript',
+        'AngularJS',
         'Web Workers',
-        'HTML5',
+        'Vue.js / React / Aurelia Evaluation',
         'Java',
         'Groovy',
-        'Spring',
+        'Spring Boot',
         'Oracle SQL',
+        'Selenium',
       ],
     },
     {
@@ -461,16 +497,16 @@ export const PORTFOLIO_DATA = {
             'in-house developer on query tuning and indexing strategies.',
         },
         {
-          skills: ['leadership'],
+          skills: ['leadership', 'javascript'],
           text:
-            'Acted as a technical consultant in pre-sales engagements—analyzing ' +
-            'client requirements to deliver effort estimations and cost-benefit ' +
-            'analyses—and vetted incoming engineering candidates through technical ' +
-            'interviews.',
+            'Partnered in pre-sales technical discovery—delivering effort estimations ' +
+            'and cost-benefit analyses—vetted engineering candidates through ' +
+            'technical interviews, and delivered rapid polyglot consulting ' +
+            'engagements.',
         },
       ],
       location: 'Cincinnati, OH',
-      technologies: ['SQL Server', 'C#', '.NET', 'JavaScript', 'Technical Leadership'],
+      technologies: ['SQL Server', 'JavaScript', 'Technical Leadership'],
     },
     {
       id: 'cincinnati-insurance',
@@ -484,14 +520,14 @@ export const PORTFOLIO_DATA = {
           skills: ['csharp', 'leadership'],
           text:
             'Proposed and championed the Adapter Pattern as the organization-wide ' +
-            'go-forward architecture for decoupling third-party API integrations.',
+            'go-forward C# architecture for decoupling third-party API integrations.',
         },
         {
           skills: ['csharp', 'performance', 'leadership'],
           text:
             'Mentored fellow developers on asynchronous C# / .NET programming ' +
-            'patterns to eliminate UI thread blocking in a legacy WinForms ' +
-            'enterprise application.',
+            'patterns across WinForms and WPF desktop applications to eliminate UI ' +
+            'thread blocking and improve responsiveness.',
         },
         {
           skills: ['csharp'],
@@ -502,7 +538,7 @@ export const PORTFOLIO_DATA = {
         },
       ],
       location: 'Fairfield, OH',
-      technologies: ['C#', '.NET', 'WinForms', 'SOAP / REST APIs'],
+      technologies: ['C#', '.NET', 'WPF', 'WinForms', 'SOAP / REST APIs'],
     },
     {
       id: 'gaig-2013',
@@ -515,9 +551,9 @@ export const PORTFOLIO_DATA = {
         {
           skills: ['leadership', 'javascript'],
           text:
-            'Drove the adoption of modern engineering practices by establishing ' +
-            'Test-Driven Development (TDD) as a team standard and leading the ' +
-            'migration from CVS to Git.',
+            'Drove the adoption of modern JavaScript engineering practices by ' +
+            'establishing Test-Driven Development (TDD) as a team standard and ' +
+            'leading the migration from CVS to Git.',
         },
         {
           skills: ['javascript', 'frontend', 'leadership'],
@@ -541,20 +577,28 @@ export const PORTFOLIO_DATA = {
         {
           skills: ['csharp', 'sql', 'performance'],
           text:
-            'Dramatically improved clinical metrics reporting (PMRS) performance by ' +
-            'optimizing critical C# and SQL code paths, reducing processing times on ' +
-            'key operations from over 5 minutes to under 10 seconds.',
+            'Dramatically improved clinical metrics reporting (PMRS) performance ' +
+            'across C#, VB.NET, and SQL Server code paths, reducing processing times ' +
+            'on key operations from over 5 minutes to under 10 seconds.',
         },
         {
           skills: ['javascript', 'frontend', 'leadership'],
           text:
-            'Introduced modern frontend architecture patterns including LESS for ' +
-            'modular stylesheets and reactive data-binding UIs, delivering critical ' +
+            'Introduced modern frontend architecture patterns including Knockout.js ' +
+            'for dynamic UIs and LESS for modular stylesheets, delivering critical ' +
             'Fetal Care application enhancements ahead of schedule.',
         },
       ],
       location: 'Cincinnati, OH',
-      technologies: ['C#', 'ASP.NET', 'SQL Server', 'JavaScript', 'LESS'],
+      technologies: [
+        'C#',
+        'VB.NET',
+        'ASP.NET',
+        'SQL Server',
+        'JavaScript',
+        'Knockout.js',
+        'LESS',
+      ],
     },
     {
       id: 'pg-2012',
@@ -565,22 +609,22 @@ export const PORTFOLIO_DATA = {
       era: 'primary',
       highlights: [
         {
-          skills: ['performance', 'csharp'],
-          text:
-            'Re-architected a failing enterprise reporting system as the sole ' +
-            'developer, restoring business-critical functionality while ' +
-            'substantially reducing memory consumption and render latency.',
-        },
-        {
           skills: ['frontend', 'performance'],
           text:
-            'Refactored an unmaintainable XSLT 1.0 data-transformation codebase into ' +
-            'modular, functional templates and isolated an undocumented platform ' +
-            'defect where staging edits leaked into production.',
+            'Re-architected a failing SharePoint and XML/XSLT 1.0 enterprise ' +
+            'reporting system as the sole developer, refactoring unmaintainable ' +
+            'stylesheets into modular functional templates while substantially ' +
+            'reducing memory consumption and render latency.',
+        },
+        {
+          skills: ['performance', 'leadership'],
+          text:
+            'Diagnosed and engineered a workaround for an undocumented platform ' +
+            'defect where staging changes were propagating into production.',
         },
       ],
       location: 'Cincinnati, OH',
-      technologies: ['.NET', 'XSLT / XML', 'SharePoint', 'JavaScript'],
+      technologies: ['XSLT 1.0', 'XML', 'SharePoint', 'JavaScript'],
     },
     {
       id: 'cchmc-2011',
@@ -591,15 +635,22 @@ export const PORTFOLIO_DATA = {
       era: 'primary',
       highlights: [
         {
-          skills: ['csharp', 'javascript', 'leadership'],
+          skills: ['javascript', 'leadership', 'sql'],
           text:
             'Mentored the full-time engineering team in modern JavaScript, jQuery, ' +
-            'and C# LINQ patterns while maintaining mission-critical ASP.NET ' +
-            'external integration portals and internal system health monitors.',
+            'and .NET LINQ patterns while maintaining mission-critical VB.NET / ' +
+            'ASP.NET external integration portals and internal system health monitors.',
         },
       ],
       location: 'Cincinnati, OH',
-      technologies: ['C#', 'ASP.NET', 'LINQ', 'JavaScript', 'jQuery', 'SQL Server'],
+      technologies: [
+        'VB.NET',
+        'ASP.NET',
+        'LINQ',
+        'JavaScript',
+        'jQuery',
+        'SQL Server',
+      ],
     },
     {
       id: 'hobart-service',
@@ -613,8 +664,8 @@ export const PORTFOLIO_DATA = {
           skills: ['leadership', 'csharp', 'sql'],
           text:
             'Served as founding full-stack technical lead, advising leadership on ' +
-            'technology procurement, guiding backend architecture, and directing ' +
-            'contract engineers.',
+            'technology procurement, guiding backend C# / .NET and SQL Server ' +
+            'architecture, and directing contract engineers.',
         },
         {
           skills: ['sql', 'csharp'],
@@ -652,21 +703,22 @@ export const PORTFOLIO_DATA = {
       era: 'early',
       highlights: [
         {
-          skills: ['frontend', 'javascript', 'csharp'],
+          skills: ['frontend', 'performance'],
           text:
             'Redesigned high-volume warehouse and logistics data-entry applications ' +
-            'with full keyboard-driven navigation and real-time audio feedback cues, ' +
-            'measurably increasing operator throughput and accessibility.',
+            'in VB.NET and VBA with full keyboard-driven navigation and real-time ' +
+            'audio feedback cues, measurably increasing operator throughput and ' +
+            'accessibility.',
         },
         {
-          skills: ['sql', 'csharp'],
+          skills: ['sql'],
           text:
             'Hardened security controls and access auditing across internal HR and ' +
-            'inventory databases.',
+            'inventory SQL databases.',
         },
       ],
       location: 'Sidney, OH',
-      technologies: ['C#', '.NET', 'SQL', 'JavaScript', 'Accessibility / UX'],
+      technologies: ['VB.NET', 'VBA', '.NET', 'SQL', 'Accessibility / UX'],
     },
     {
       id: 'bearingpoint',
@@ -679,9 +731,9 @@ export const PORTFOLIO_DATA = {
         {
           skills: ['csharp', 'sql'],
           text:
-            'Developed a secure military communications application at Wright-Patterson ' +
-            'Air Force Base (WPAFB) for rapidly disseminating command updates to ' +
-            'targeted personnel groups.',
+            'Developed a secure military communications application in C# and .NET ' +
+            'at Wright-Patterson Air Force Base (WPAFB) for rapidly disseminating ' +
+            'command updates to targeted personnel groups.',
         },
       ],
       location: 'Dayton, OH (WPAFB)',
@@ -696,14 +748,14 @@ export const PORTFOLIO_DATA = {
       era: 'early',
       highlights: [
         {
-          skills: ['sql', 'csharp', 'performance'],
+          skills: ['sql', 'performance'],
           text:
             'Designed a metadata-driven dynamic SQL search engine that inspected ' +
             'schema topology to construct optimal 3+ table JOIN trees on-the-fly ' +
             'with type-aware filtering and red-teamed SQL injection protection.',
         },
         {
-          skills: ['sql', 'csharp'],
+          skills: ['sql'],
           text:
             'Architected automated data scrubbing and normalization pipelines to ' +
             'consolidate historical records from 300+ legacy client systems (Excel, ' +
@@ -713,8 +765,10 @@ export const PORTFOLIO_DATA = {
         {
           skills: ['leadership', 'csharp', 'sql'],
           text:
-            'Built an integrated problem and requirements tracking system (a custom ' +
-            'hybrid of Jira and DOORS) and led the development team within a ' +
+            'Led the migration of legacy VBScript Classic ASP applications to .NET ' +
+            '(VB.NET)—mastering C# to translate early Microsoft .NET documentation ' +
+            'and reference patterns into VB.NET—and built an integrated problem and ' +
+            'requirements tracking system (a hybrid of Jira and DOORS) inside a ' +
             'high-compliance military environment at WPAFB.',
         },
       ],
@@ -722,8 +776,10 @@ export const PORTFOLIO_DATA = {
       technologies: [
         'SQL Server',
         'Dynamic SQL',
+        'VB.NET',
+        'C# (.NET Reference Translation)',
+        'Classic ASP / VBScript',
         'ODBC / ETL',
-        'C# / .NET',
         'Technical Leadership',
       ],
     },
