@@ -133,10 +133,36 @@
       </div>
     </header>
 
-    <main
-      id="top"
-      class="layout-container"
-    >
+    <div class="page-shell">
+      <div class="workspace-grid">
+        <aside
+          class="skills-sidebar"
+          aria-labelledby="sidebar-skills-heading"
+        >
+          <div class="sidebar-panel">
+            <div class="sidebar-header">
+              <h2
+                id="sidebar-skills-heading"
+                class="sidebar-title"
+              >
+                Skills &amp; Competency
+              </h2>
+              <p class="sidebar-subtitle">
+                Click any skill box to toggle filtering
+              </p>
+            </div>
+
+            <div
+              id="skill-competency-list"
+              class="competency-box-list"
+            ></div>
+          </div>
+        </aside>
+
+        <main
+          id="top"
+          class="layout-container"
+        >
       <section
         class="hero-section"
         aria-labelledby="hero-heading"
@@ -334,7 +360,9 @@
           </div>
         </div>
       </section>
-    </main>
+        </main>
+      </div>
+    </div>
 
     <footer class="site-footer">
       <p>

@@ -356,6 +356,51 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
     _.elements.skillFilterList.innerHTML = buttonsHtml;
   };
 
+  const renderCompetencySidebar = () => {
+    if (!_.elements.skillCompetencyList || !_.data.skillCompetencies) {
+      return;
+    }
+
+    const boxesHtml = _.data.skillCompetencies
+      .map((item) => {
+        const isActive = Boolean(
+          item.filterId && _.activeSkills.has(item.filterId),
+        );
+        const boxClass = isActive
+          ? 'competency-box is-active'
+          : 'competency-box';
+        const ariaPressed = isActive ? 'true' : 'false';
+        const clampedWidth = Math.max(0, Math.min(100, Number(item.proficiency)));
+
+        return `
+          <button
+            class="${boxClass}"
+
+            aria-pressed="${ariaPressed}"
+            data-skill-trigger="${escapeHtml(item.filterId)}"
+            type="button"
+          >
+            <div class="competency-box-body">
+              <span class="competency-name">${escapeHtml(item.name)}</span>
+              <span class="competency-meta">${escapeHtml(item.level)}</span>
+            </div>
+            <div
+              class="competency-bar-track"
+              aria-hidden="true"
+            >
+              <div
+                class="competency-bar-fill"
+                style="width: ${clampedWidth}%"
+              ></div>
+            </div>
+          </button>
+        `;
+      })
+      .join('');
+
+    _.elements.skillCompetencyList.innerHTML = boxesHtml;
+  };
+
   const renderStatusBanner = (
     matchedRoleCount,
     matchedBulletCount,
@@ -459,6 +504,7 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
     }
 
     renderFilterBar();
+    renderCompetencySidebar();
     renderStatusBanner(
       matchedRoleCount,
       matchedBulletCount,
@@ -480,6 +526,7 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
         filterStatus: document.getElementById('filter-status'),
         heroSummary: document.getElementById('hero-summary'),
         projectList: document.getElementById('project-list'),
+        skillCompetencyList: document.getElementById('skill-competency-list'),
         skillFilterList: document.getElementById('skill-filter-list'),
       });
 
