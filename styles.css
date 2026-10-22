@@ -693,6 +693,14 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 }
 
+.empty-filter-card {
+  grid-column: 1 / -1;
+}
+
+.empty-filter-card .card-description {
+  margin: 0;
+}
+
 .project-card,
 .article-card {
   display: flex;
