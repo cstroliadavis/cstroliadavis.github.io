@@ -1,22 +1,21 @@
 :root {
-  --sdc-accent-crimson: var(--client-accent-crimson, #991b1b);
-  --sdc-accent-crimson-soft: var(--client-accent-crimson-soft, #fef2f2);
-  --sdc-bg-canvas: var(--client-bg-canvas, #bdd7e2);
-  --sdc-bg-canvas-deep: var(--client-bg-canvas-deep, #9ec2d1);
-  --sdc-bg-elevated: var(--client-bg-elevated, #edf5f8);
-  --sdc-bg-surface: var(--client-bg-surface, rgba(255, 255, 255, 0.93));
-  --sdc-border-strong: var(--client-border-strong, #93b8c9);
-  --sdc-border-subtle: var(--client-border-subtle, rgba(147, 184, 201, 0.65));
+  --sdc-accent-crimson: #991b1b;
+  --sdc-accent-crimson-soft: #fef2f2;
+  --sdc-bg-canvas: #bdd7e2;
+  --sdc-bg-elevated: #edf5f8;
+  --sdc-bg-surface: rgba(255, 255, 255, 0.93);
+  --sdc-border-strong: #93b8c9;
+  --sdc-border-subtle: rgba(147, 184, 201, 0.65);
   --sdc-font-mono:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
     monospace;
   --sdc-font-sans:
     'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, sans-serif;
-  --sdc-primary: var(--client-primary, #134074);
-  --sdc-primary-border: var(--client-primary-border, #8ecae6);
-  --sdc-primary-hover: var(--client-primary-hover, #0b5394);
-  --sdc-primary-soft: var(--client-primary-soft, #e6f3f8);
+  --sdc-primary: #134074;
+  --sdc-primary-border: #8ecae6;
+  --sdc-primary-hover: #0b5394;
+  --sdc-primary-soft: #e6f3f8;
   --sdc-radius-lg: 14px;
   --sdc-radius-md: 8px;
   --sdc-radius-pill: 9999px;
@@ -24,10 +23,10 @@
     0 4px 16px rgba(11, 37, 56, 0.09), 0 1px 3px rgba(11, 37, 56, 0.06);
   --sdc-shadow-hover:
     0 8px 26px rgba(11, 37, 56, 0.14), 0 2px 8px rgba(19, 64, 116, 0.1);
-  --sdc-teal-accent: var(--client-teal-accent, #0f766e);
-  --sdc-text-muted: var(--client-text-muted, #476273);
-  --sdc-text-primary: var(--client-text-primary, #0b1f2e);
-  --sdc-text-secondary: var(--client-text-secondary, #233d4d);
+  --sdc-teal-accent: #0f766e;
+  --sdc-text-muted: #476273;
+  --sdc-text-primary: #0b1f2e;
+  --sdc-text-secondary: #233d4d;
 }
 
 *,
@@ -211,7 +210,6 @@ body {
 
 .header-inner {
   align-items: center;
-  container-type: inline-size;
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
@@ -291,8 +289,6 @@ body {
 }
 
 .page-shell {
-  container-name: page-shell;
-  container-type: inline-size;
   position: relative;
   width: 100%;
   z-index: 10;

@@ -95,7 +95,11 @@ function renderExperienceCard(
     })
     .join('');
 
-  const techBadgesHtml = role.technologies
+  const technologies = [
+    ...new Set(role.highlights.flatMap((item) => item.skills)),
+  ];
+
+  const techBadgesHtml = technologies
     .map((tech) => {
       const isMatchedTech = !isAll && activeSkills.has(tech);
       const badgeClass = isMatchedTech
@@ -271,23 +275,25 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
           (item, index) =>
             isExpanded || index < 3 || _.activeSkills.has(item.name),
         );
-        const hiddenCount = categoryItems.length - 3;
+        const hiddenCount = categoryItems.length - visibleItems.length;
+        const showHandle = isExpanded
+          ? categoryItems.length > 3
+          : hiddenCount > 0;
         const boxesHtml = visibleItems.map(renderCompetencyBox).join('');
 
-        const handleHtml =
-          hiddenCount > 0
-            ? `<button
-                class="competency-more-handle"
+        const handleHtml = showHandle
+          ? `<button
+              class="competency-more-handle"
 
-                aria-expanded="${isExpanded ? 'true' : 'false'}"
-                data-expand-category="${escapeHtml(category)}"
-                type="button"
-              >${
-                isExpanded
-                  ? 'Show top 3 &#9652;'
-                  : `+ ${hiddenCount} more &#9662;`
-              }</button>`
-            : '';
+              aria-expanded="${isExpanded ? 'true' : 'false'}"
+              data-expand-category="${escapeHtml(category)}"
+              type="button"
+            >${
+              isExpanded
+                ? 'Show top 3 &#9652;'
+                : `+ ${hiddenCount} more &#9662;`
+            }</button>`
+          : '';
 
         return `
           <section class="competency-category">
@@ -475,8 +481,16 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
         _.isBound = true;
 
         document.addEventListener('click', (event) => {
+          if (
+            _.isMenuOpen &&
+            !event.target.closest('#skills-sidebar, #top-menu-toggle')
+          ) {
+            _.isMenuOpen = false;
+            renderMenuState();
+          }
+
           const target = event.target.closest(
-            '[data-skill-id], [data-skill-trigger], [data-reset-filter], [data-expand-role], [data-expand-category], [data-toggle-menu], [data-close-menu]',
+            '[data-skill-trigger], [data-reset-filter], [data-expand-role], [data-expand-category], [data-toggle-menu], [data-close-menu]',
           );
 
           if (!target) {
@@ -523,9 +537,7 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
             return;
           }
 
-          const skillId =
-            target.getAttribute('data-skill-id') ||
-            target.getAttribute('data-skill-trigger');
+          const skillId = target.getAttribute('data-skill-trigger');
 
           if (skillId) {
             controller.toggleSkillFilter(skillId);
@@ -550,9 +562,7 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
     },
 
     toggleSkillFilter(skillId) {
-      if (skillId === 'all') {
-        _.activeSkills.clear();
-      } else if (_.activeSkills.has(skillId)) {
+      if (_.activeSkills.has(skillId)) {
         _.activeSkills.delete(skillId);
       } else {
         _.activeSkills.add(skillId);
