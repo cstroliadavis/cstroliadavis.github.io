@@ -130,16 +130,54 @@
             href="#education"
           >Education</a>
         </nav>
+
+        <button
+          id="top-menu-toggle"
+          class="top-menu-toggle"
+
+          aria-controls="skills-sidebar"
+          aria-expanded="false"
+          data-toggle-menu="true"
+          type="button"
+        >Menu &amp; Skills &#9662;</button>
       </div>
     </header>
 
     <div class="page-shell">
       <div class="workspace-grid">
         <aside
+          id="skills-sidebar"
           class="skills-sidebar"
+
           aria-labelledby="sidebar-skills-heading"
         >
           <div class="sidebar-panel">
+            <nav
+              class="sidebar-doc-nav"
+              aria-label="Mobile section navigation"
+            >
+              <a
+                class="nav-link"
+                data-close-menu="true"
+                href="#experience"
+              >Experience</a>
+              <a
+                class="nav-link"
+                data-close-menu="true"
+                href="#projects"
+              >Projects &amp; Demos</a>
+              <a
+                class="nav-link"
+                data-close-menu="true"
+                href="#articles"
+              >Articles</a>
+              <a
+                class="nav-link"
+                data-close-menu="true"
+                href="#education"
+              >Education</a>
+            </nav>
+
             <div class="sidebar-header">
               <h2
                 id="sidebar-skills-heading"
@@ -154,7 +192,7 @@
 
             <div
               id="skill-competency-list"
-              class="competency-box-list"
+              class="competency-category-stack"
             ></div>
           </div>
         </aside>
@@ -215,37 +253,12 @@
         </div>
       </section>
 
-      <section
-        class="filter-panel"
-        aria-labelledby="filter-heading"
-      >
-        <div class="filter-panel-header">
-          <h2
-            id="filter-heading"
-            class="filter-panel-title"
-          >
-            Interactive Skill-Set Filter (Multi-Select)
-          </h2>
-          <p class="filter-panel-hint">
-            Select one or multiple technologies (e.g., TypeScript + Vue.js + C#) to isolate matching roles and achievements
-          </p>
-        </div>
+      <div
+        id="filter-status"
+        class="filter-status-bar"
 
-        <div
-          id="skill-filter-list"
-          class="filter-pill-group"
-
-          aria-label="Filter experience and projects by skill"
-          role="group"
-        ></div>
-
-        <div
-          id="filter-status"
-          class="filter-status-bar"
-
-          aria-live="polite"
-        ></div>
-      </section>
+        aria-live="polite"
+      ></div>
 
       <section
         id="experience"
@@ -261,7 +274,7 @@
             Work Experience &amp; Architectural Impact
           </h2>
           <p class="section-subtitle">
-            Click any skill above—or any technology pill inside a role—to isolate matching achievements
+            Click any skill in the menu—or any technology pill inside a role—to isolate matching achievements
           </p>
         </div>
 

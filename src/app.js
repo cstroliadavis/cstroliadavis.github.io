@@ -213,39 +213,38 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
     activeSkills: new Set(),
     data,
     elements: {},
+    expandedCategories: new Set(),
     expandedRoles: new Set(),
     isBound: false,
+    isMenuOpen: false,
   };
 
-  const renderFilterBar = () => {
-    if (!_.elements.skillFilterList) {
-      return;
-    }
+  const renderCompetencyBox = (item) => {
+    const isActive = _.activeSkills.has(item.name);
+    const boxClass = isActive ? 'competency-box is-active' : 'competency-box';
+    const ariaPressed = isActive ? 'true' : 'false';
+    const clampedWidth = Math.max(0, Math.min(100, Number(item.proficiency)));
 
-    const isAllSelected = _.activeSkills.size === 0;
+    return `
+      <button
+        class="${boxClass}"
 
-    const buttonsHtml = _.data.skillFilters
-      .map((filter) => {
-        const isActive =
-          filter.id === 'all' ? isAllSelected : _.activeSkills.has(filter.id);
-        const btnClass = isActive
-          ? 'filter-pill is-active'
-          : 'filter-pill';
-        const ariaPressed = isActive ? 'true' : 'false';
-
-        return `
-          <button
-            class="${btnClass}"
-
-            aria-pressed="${ariaPressed}"
-            data-skill-id="${escapeHtml(filter.id)}"
-            type="button"
-          >${escapeHtml(filter.label)}</button>
-        `;
-      })
-      .join('');
-
-    _.elements.skillFilterList.innerHTML = buttonsHtml;
+        aria-pressed="${ariaPressed}"
+        data-skill-trigger="${escapeHtml(item.name)}"
+        type="button"
+      >
+        <span class="competency-name">${escapeHtml(item.name)}</span>
+        <div
+          class="competency-bar-track"
+          aria-hidden="true"
+        >
+          <div
+            class="competency-bar-fill"
+            style="width: ${clampedWidth}%"
+          ></div>
+        </div>
+      </button>
+    `;
   };
 
   const renderCompetencySidebar = () => {
@@ -253,42 +252,77 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
       return;
     }
 
-    const boxesHtml = _.data.skillCompetencies
-      .map((item) => {
-        const isActive = _.activeSkills.has(item.name);
-        const boxClass = isActive
-          ? 'competency-box is-active'
-          : 'competency-box';
-        const ariaPressed = isActive ? 'true' : 'false';
-        const clampedWidth = Math.max(
-          0,
-          Math.min(100, Number(item.proficiency)),
+    const categories = _.data.skillCategories ?? [
+      ...new Set(_.data.skillCompetencies.map((item) => item.category)),
+    ];
+
+    const categoriesHtml = categories
+      .map((category) => {
+        const categoryItems = _.data.skillCompetencies.filter(
+          (item) => item.category === category,
         );
 
-        return `
-          <button
-            class="${boxClass}"
+        if (categoryItems.length === 0) {
+          return '';
+        }
 
-            aria-pressed="${ariaPressed}"
-            data-skill-trigger="${escapeHtml(item.name)}"
-            type="button"
-          >
-            <span class="competency-name">${escapeHtml(item.name)}</span>
-            <div
-              class="competency-bar-track"
-              aria-hidden="true"
-            >
-              <div
-                class="competency-bar-fill"
-                style="width: ${clampedWidth}%"
-              ></div>
+        const isExpanded = _.expandedCategories.has(category);
+        const visibleItems = categoryItems.filter(
+          (item, index) =>
+            isExpanded || index < 3 || _.activeSkills.has(item.name),
+        );
+        const hiddenCount = categoryItems.length - 3;
+        const boxesHtml = visibleItems.map(renderCompetencyBox).join('');
+
+        const handleHtml =
+          hiddenCount > 0
+            ? `<button
+                class="competency-more-handle"
+
+                aria-expanded="${isExpanded ? 'true' : 'false'}"
+                data-expand-category="${escapeHtml(category)}"
+                type="button"
+              >${
+                isExpanded
+                  ? 'Show top 3 &#9652;'
+                  : `+ ${hiddenCount} more &#9662;`
+              }</button>`
+            : '';
+
+        return `
+          <section class="competency-category">
+            <h3 class="competency-category-title">${escapeHtml(category)}:</h3>
+            <div class="competency-box-list">
+              ${boxesHtml}
             </div>
-          </button>
+            ${handleHtml}
+          </section>
         `;
       })
+      .filter(Boolean)
       .join('');
 
-    _.elements.skillCompetencyList.innerHTML = boxesHtml;
+    _.elements.skillCompetencyList.innerHTML = categoriesHtml;
+  };
+
+  const renderMenuState = () => {
+    if (_.elements.skillsSidebar) {
+      _.elements.skillsSidebar.className = _.isMenuOpen
+        ? 'skills-sidebar is-menu-open'
+        : 'skills-sidebar';
+    }
+
+    if (_.elements.topMenuToggle) {
+      const countSuffix =
+        _.activeSkills.size > 0 ? ` (${_.activeSkills.size})` : '';
+      const arrow = _.isMenuOpen ? '&#9652;' : '&#9662;';
+
+      _.elements.topMenuToggle.setAttribute(
+        'aria-expanded',
+        _.isMenuOpen ? 'true' : 'false',
+      );
+      _.elements.topMenuToggle.innerHTML = `Menu &amp; Skills${countSuffix} ${arrow}`;
+    }
   };
 
   const renderStatusBanner = (
@@ -310,7 +344,7 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
         <span>Showing all <strong>${_.data.experience.length}</strong> career roles,
         <strong>${totalBullets}</strong> key achievements, and
         <strong>${_.data.projects.length}</strong> featured projects.
-        Select <strong>one or multiple skills</strong> from the sidebar, filter bar, or role cards to filter.</span>
+        Select <strong>one or multiple skills</strong> from the Skills menu or role cards to filter.</span>
       `;
 
       return;
@@ -392,8 +426,8 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
             </div>`;
     }
 
-    renderFilterBar();
     renderCompetencySidebar();
+    renderMenuState();
     renderStatusBanner(
       matchedRoleCount,
       matchedBulletCount,
@@ -416,7 +450,8 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
         heroSummary: document.getElementById('hero-summary'),
         projectList: document.getElementById('project-list'),
         skillCompetencyList: document.getElementById('skill-competency-list'),
-        skillFilterList: document.getElementById('skill-filter-list'),
+        skillsSidebar: document.getElementById('skills-sidebar'),
+        topMenuToggle: document.getElementById('top-menu-toggle'),
       });
 
       if (_.elements.heroSummary) {
@@ -441,15 +476,35 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
 
         document.addEventListener('click', (event) => {
           const target = event.target.closest(
-            '[data-skill-id], [data-skill-trigger], [data-reset-filter], [data-expand-role]',
+            '[data-skill-id], [data-skill-trigger], [data-reset-filter], [data-expand-role], [data-expand-category], [data-toggle-menu], [data-close-menu]',
           );
 
           if (!target) {
             return;
           }
 
+          if (target.hasAttribute('data-toggle-menu')) {
+            controller.toggleMenu();
+
+            return;
+          }
+
+          if (target.hasAttribute('data-close-menu')) {
+            _.isMenuOpen = false;
+            renderMenuState();
+
+            return;
+          }
+
           if (target.hasAttribute('data-reset-filter')) {
             controller.clearSkills();
+
+            return;
+          }
+
+          if (target.hasAttribute('data-expand-category')) {
+            const category = target.getAttribute('data-expand-category');
+            controller.toggleCategory(category);
 
             return;
           }
@@ -477,6 +532,21 @@ export function createPortfolioApp(data = PORTFOLIO_DATA) {
           }
         });
       }
+    },
+
+    toggleCategory(category) {
+      if (_.expandedCategories.has(category)) {
+        _.expandedCategories.delete(category);
+      } else {
+        _.expandedCategories.add(category);
+      }
+
+      renderCompetencySidebar();
+    },
+
+    toggleMenu() {
+      _.isMenuOpen = !_.isMenuOpen;
+      renderMenuState();
     },
 
     toggleSkillFilter(skillId) {
