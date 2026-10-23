@@ -32,10 +32,18 @@ describe('PORTFOLIO_DATA skill integrity', () => {
       }
     }
   });
+  it('assigns every skill competency to one of the five defined categories', () => {
+    const validCategories = new Set(PORTFOLIO_DATA.skillCategories);
+
+    for (const item of PORTFOLIO_DATA.skillCompetencies) {
+      expect(validCategories.has(item.category)).toBe(true);
+    }
+  });
 });
 
 describe('createPortfolioApp', () => {
   const setup = (customData = PORTFOLIO_DATA) => {
+    const attrs = {};
     const elements = Object.freeze({
       'article-list': { innerHTML: '' },
       'experience-list': { innerHTML: '' },
@@ -43,7 +51,13 @@ describe('createPortfolioApp', () => {
       'hero-summary': { innerHTML: '' },
       'project-list': { innerHTML: '' },
       'skill-competency-list': { innerHTML: '' },
-      'skill-filter-list': { innerHTML: '' },
+      'skills-sidebar': { className: 'skills-sidebar' },
+      'top-menu-toggle': {
+        innerHTML: '',
+        setAttribute(name, value) {
+          attrs[name] = value;
+        },
+      },
     });
 
     const listeners = [];
@@ -61,27 +75,56 @@ describe('createPortfolioApp', () => {
     const app = createPortfolioApp(customData);
     app.init();
 
-    return { app, elements, listeners };
+    return { app, attrs, elements, listeners };
   };
 
-  it('renders all career roles, projects, articles, and individual sidebar skills on load', () => {
-    const { elements } = setup();
+  it('renders categorized skills with top 3 items per section and expand handles only when > 3', () => {
+    const { app, elements } = setup();
+    const sidebarHtml = elements['skill-competency-list'].innerHTML;
 
     expect(elements['filter-status'].innerHTML).toContain(
       `Showing all <strong>${PORTFOLIO_DATA.experience.length}</strong> career roles`,
     );
-    expect(elements['experience-list'].innerHTML).toContain('Self-Employed');
-    expect(elements['experience-list'].innerHTML).toContain('NKParts');
-    expect(elements['project-list'].innerHTML).toContain('vscode-tailor');
-    expect(elements['project-list'].innerHTML).toContain('Photo Port');
-    expect(elements['article-list'].innerHTML).toContain(
-      'Building MCP Servers: Part 1',
+    expect(sidebarHtml).toContain('Programming Languages:');
+    expect(sidebarHtml).toContain('Frameworks:');
+    expect(sidebarHtml).toContain('Soft Skills:');
+    expect(sidebarHtml).toContain('Patterns and Protocols:');
+    expect(sidebarHtml).toContain('Tools:');
+
+    expect(sidebarHtml).toContain('data-skill-trigger="JavaScript"');
+    expect(sidebarHtml).not.toContain('data-skill-trigger="Python"');
+    expect(sidebarHtml).toContain(
+      'data-expand-category="Programming Languages"',
+    );
+    expect(sidebarHtml).not.toContain('data-expand-category="Soft Skills"');
+
+    app.toggleCategory('Programming Languages');
+
+    expect(elements['skill-competency-list'].innerHTML).toContain(
+      'data-skill-trigger="Python"',
     );
     expect(elements['skill-competency-list'].innerHTML).toContain(
-      'data-skill-trigger="JavaScript"',
+      'Show top 3',
     );
-    expect(elements['skill-competency-list'].innerHTML).toContain(
-      'style="width: 98%"',
+  });
+
+  it('toggles the responsive top menu and displays active skill count in toggle button', () => {
+    const { app, attrs, elements } = setup();
+
+    expect(elements['skills-sidebar'].className).toBe('skills-sidebar');
+    expect(attrs['aria-expanded']).toBe('false');
+
+    app.toggleMenu();
+
+    expect(elements['skills-sidebar'].className).toBe(
+      'skills-sidebar is-menu-open',
+    );
+    expect(attrs['aria-expanded']).toBe('true');
+
+    app.toggleSkillFilter('TypeScript');
+
+    expect(elements['top-menu-toggle'].innerHTML).toContain(
+      'Menu &amp; Skills (1)',
     );
   });
 
