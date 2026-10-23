@@ -4,34 +4,25 @@ import { createPortfolioApp } from './app.js';
 import { PORTFOLIO_DATA } from './data.js';
 
 describe('PORTFOLIO_DATA skill integrity', () => {
-  it('includes every work experience technology in skillCompetencies and vice versa', () => {
-    const roleTechSet = new Set(
-      PORTFOLIO_DATA.experience.flatMap((role) => role.technologies),
+  it('includes every work experience bullet skill in skillCompetencies and vice versa', () => {
+    const bulletSkillSet = new Set(
+      PORTFOLIO_DATA.experience.flatMap((role) =>
+        role.highlights.flatMap((bullet) => bullet.skills),
+      ),
     );
     const sidebarSkillSet = new Set(
       PORTFOLIO_DATA.skillCompetencies.map((item) => item.name),
     );
 
-    for (const tech of roleTechSet) {
+    for (const tech of bulletSkillSet) {
       expect(sidebarSkillSet.has(tech)).toBe(true);
     }
 
     for (const skill of sidebarSkillSet) {
-      expect(roleTechSet.has(skill)).toBe(true);
+      expect(bulletSkillSet.has(skill)).toBe(true);
     }
   });
 
-  it('links every technology in a role to at least one achievement bullet in that role', () => {
-    for (const role of PORTFOLIO_DATA.experience) {
-      const bulletSkills = new Set(
-        role.highlights.flatMap((bullet) => bullet.skills),
-      );
-
-      for (const tech of role.technologies) {
-        expect(bulletSkills.has(tech)).toBe(true);
-      }
-    }
-  });
   it('assigns every skill competency to one of the five defined categories', () => {
     const validCategories = new Set(PORTFOLIO_DATA.skillCategories);
 
@@ -146,6 +137,62 @@ describe('createPortfolioApp', () => {
     expect(elements['project-list'].innerHTML).toContain('empty-filter-card');
     expect(elements['skill-competency-list'].innerHTML).toContain(
       'class="competency-box is-active"',
+    );
+    expect(elements['skill-competency-list'].innerHTML).toContain('+ 11 more');
+  });
+
+  it('routes delegated document clicks for menu toggle, outside close, skill filtering, role expansion, and reset', () => {
+    const { elements, listeners } = setup();
+    const onClick = listeners[0].handler;
+
+    const makeTarget = (attrMap, insideMenu = false) => ({
+      closest(selector) {
+        if (selector.includes('#skills-sidebar')) {
+          return insideMenu ? {} : null;
+        }
+
+        const matchedKey = Object.keys(attrMap).find((key) =>
+          selector.includes(`[${key}]`),
+        );
+
+        if (!matchedKey) {
+          return null;
+        }
+
+        return {
+          getAttribute: (name) => attrMap[name] ?? null,
+          hasAttribute: (name) => name in attrMap,
+        };
+      },
+    });
+
+    onClick({ target: makeTarget({ 'data-toggle-menu': 'true' }, true) });
+    expect(elements['skills-sidebar'].className).toBe(
+      'skills-sidebar is-menu-open',
+    );
+
+    onClick({ target: makeTarget({}, false) });
+    expect(elements['skills-sidebar'].className).toBe('skills-sidebar');
+
+    onClick({ target: makeTarget({ 'data-skill-trigger': 'Redis' }) });
+    expect(elements['experience-list'].innerHTML).toContain(
+      'Showing 1 of 5 achievements',
+    );
+    expect(elements['experience-list'].innerHTML).not.toContain(
+      'Project Unity',
+    );
+
+    onClick({
+      target: makeTarget({ 'data-expand-role': 'swarm-solutions' }),
+    });
+    expect(elements['experience-list'].innerHTML).toContain('Project Unity');
+    expect(elements['experience-list'].innerHTML).toContain(
+      'Show only 1 matching achievement',
+    );
+
+    onClick({ target: makeTarget({ 'data-reset-filter': 'true' }) });
+    expect(elements['filter-status'].innerHTML).toContain(
+      `Showing all <strong>${PORTFOLIO_DATA.experience.length}</strong> career roles`,
     );
   });
 
