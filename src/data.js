@@ -1,7 +1,21 @@
 /**
- * Structured portfolio, project, article, and skill-tagged experience data.
+ * Structured portfolio, project, article, and skill-tagged experience dataset.
  * Every technology listed under a role appears as an individual competency box
- * in the left sidebar and filters down to the exact achievements that used it.
+ * in the categorized skills menu and filters down to matching achievements.
+ *
+ * @type {object}
+ * @property {object[]} articles - Published engineering articles on Medium.
+ * @property {object[]} experience - Career roles with skill-tagged achievement bullets.
+ * @property {object[]} projects - Open-source repositories and reference applications.
+ * @property {string[]} skillCategories - Ordered skill competency category headings.
+ * @property {object[]} skillCompetencies - Categorized skills with proficiency scores (0-100).
+ * @property {string[]} summaryParagraphs - Executive overview paragraphs rendered in the hero.
+ *
+ * @example
+ * ```js
+ * PORTFOLIO_DATA.skillCategories.length; // => 5
+ * PORTFOLIO_DATA.experience.length > 0; // => true
+ * ```
  */
 export const PORTFOLIO_DATA = {
   articles: [
@@ -955,6 +969,7 @@ export const PORTFOLIO_DATA = {
     { name: 'Technical Leadership', category: 'Soft Skills', proficiency: 95 },
     {
       name: 'HTML5 / CSS / LESS / SCSS / PostCSS',
+
       category: 'Programming Languages',
       proficiency: 94,
     },
@@ -971,6 +986,7 @@ export const PORTFOLIO_DATA = {
     { name: 'Handlebars.js', category: 'Frameworks', proficiency: 86 },
     {
       name: 'Workflow Automation',
+
       category: 'Patterns and Protocols',
       proficiency: 85,
     },
@@ -982,6 +998,7 @@ export const PORTFOLIO_DATA = {
     { name: 'LINQ', category: 'Frameworks', proficiency: 81 },
     {
       name: 'Accessibility / UX',
+
       category: 'Patterns and Protocols',
       proficiency: 80,
     },
@@ -1002,6 +1019,7 @@ export const PORTFOLIO_DATA = {
     { name: 'Web Workers', category: 'Patterns and Protocols', proficiency: 69 },
     {
       name: 'Secure Systems',
+
       category: 'Patterns and Protocols',
       proficiency: 69,
     },
@@ -1018,12 +1036,14 @@ export const PORTFOLIO_DATA = {
     { name: 'Groovy', category: 'Programming Languages', proficiency: 61 },
     {
       name: 'ETL Pipelines',
+
       category: 'Patterns and Protocols',
       proficiency: 60,
     },
     { name: 'ODBC', category: 'Patterns and Protocols', proficiency: 59 },
     {
       name: 'MCP / Agentic AI',
+
       category: 'Patterns and Protocols',
       proficiency: 59,
     },
@@ -1031,6 +1051,7 @@ export const PORTFOLIO_DATA = {
     { name: 'VBA', category: 'Programming Languages', proficiency: 57 },
     {
       name: 'Classic ASP / VBScript',
+
       category: 'Programming Languages',
       proficiency: 57,
     },
@@ -1041,6 +1062,7 @@ export const PORTFOLIO_DATA = {
     { name: 'Excel DSS', category: 'Tools', proficiency: 53 },
     {
       name: 'Oracle PL/SQL',
+
       category: 'Programming Languages',
       proficiency: 52,
     },

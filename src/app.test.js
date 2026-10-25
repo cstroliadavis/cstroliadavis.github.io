@@ -1,7 +1,9 @@
-import { describe, expect, it } from 'bun:test';
+import { afterEach, describe, expect, it } from 'bun:test';
 
 import { createPortfolioApp } from './app.js';
 import { PORTFOLIO_DATA } from './data.js';
+
+const ORIGINAL_DOCUMENT = globalThis.document;
 
 describe('PORTFOLIO_DATA skill integrity', () => {
   it('includes every work experience bullet skill in skillCompetencies and vice versa', () => {
@@ -45,31 +47,37 @@ describe('createPortfolioApp', () => {
       'skills-sidebar': { className: 'skills-sidebar' },
       'top-menu-toggle': {
         innerHTML: '',
+
         setAttribute(name, value) {
           attrs[name] = value;
         },
       },
     });
-
     const listeners = [];
 
     globalThis.document = {
+      readyState: 'complete',
+
       addEventListener(type, handler) {
         listeners.push({ handler, type });
       },
       getElementById(id) {
         return elements[id] ?? null;
       },
-      readyState: 'complete',
     };
 
     const app = createPortfolioApp(customData);
+
     app.init();
 
     return { app, attrs, elements, listeners };
   };
 
-  it('renders categorized skills with top 3 items per section and expand handles only when > 3', () => {
+  afterEach(() => {
+    globalThis.document = ORIGINAL_DOCUMENT;
+  });
+
+  it('renders categorized skills with top 3 items and expand handles when > 3', () => {
     const { app, elements } = setup();
     const sidebarHtml = elements['skill-competency-list'].innerHTML;
 
@@ -141,23 +149,19 @@ describe('createPortfolioApp', () => {
     expect(elements['skill-competency-list'].innerHTML).toContain('+ 11 more');
   });
 
-  it('routes delegated document clicks for menu toggle, outside close, skill filtering, role expansion, and reset', () => {
+  it('routes delegated clicks: menu, outside close, filter, expand, and reset', () => {
     const { elements, listeners } = setup();
     const onClick = listeners[0].handler;
 
     const makeTarget = (attrMap, insideMenu = false) => ({
       closest(selector) {
-        if (selector.includes('#skills-sidebar')) {
-          return insideMenu ? {} : null;
-        }
+        if (selector.includes('#skills-sidebar')) return insideMenu ? {} : null;
 
         const matchedKey = Object.keys(attrMap).find((key) =>
           selector.includes(`[${key}]`),
         );
 
-        if (!matchedKey) {
-          return null;
-        }
+        if (!matchedKey) return null;
 
         return {
           getAttribute: (name) => attrMap[name] ?? null,
@@ -171,8 +175,19 @@ describe('createPortfolioApp', () => {
       'skills-sidebar is-menu-open',
     );
 
+    onClick({ target: makeTarget({ 'data-close-menu': 'true' }, true) });
+    expect(elements['skills-sidebar'].className).toBe('skills-sidebar');
+
+    onClick({ target: makeTarget({ 'data-toggle-menu': 'true' }, true) });
     onClick({ target: makeTarget({}, false) });
     expect(elements['skills-sidebar'].className).toBe('skills-sidebar');
+
+    onClick({
+      target: makeTarget({ 'data-expand-category': 'Programming Languages' }),
+    });
+    expect(elements['skill-competency-list'].innerHTML).toContain(
+      'data-skill-trigger="Python"',
+    );
 
     onClick({ target: makeTarget({ 'data-skill-trigger': 'Redis' }) });
     expect(elements['experience-list'].innerHTML).toContain(

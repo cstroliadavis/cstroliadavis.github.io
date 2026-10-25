@@ -7,7 +7,7 @@
       name="viewport"
     />
     <meta
-      content="Christopher Strolia-Davis — Principal & Staff Software Engineer, Technical Leader, and Full-Stack Architect specializing in TypeScript, JavaScript, Node.js, Bun, React, Vue.js, PostgreSQL, SQL Server, C#/.NET, and Model Context Protocol (MCP)."
+      content="Christopher Strolia-Davis — Principal &amp; Staff Software Engineer, Technical Leader, and Full-Stack Architect (TypeScript, JavaScript, Node.js, Bun, React, Vue.js, PostgreSQL, SQL Server, C#/.NET, MCP)."
       name="description"
     />
     <title>Christopher Strolia-Davis | Principal &amp; Staff Software Engineer</title>
@@ -24,14 +24,18 @@
   <body>
     <div
       class="ambient-backdrop"
+
       aria-hidden="true"
     >
       <div class="ambient-screen-glow"></div>
       <div class="ambient-tech-grid"></div>
 
-      <pre class="ambient-code-pane ambient-code-pane-primary"><code><span class="ck">export function</span> <span class="cf">createSemaphoreQueue</span>(deps: { <span class="cp">redis</span>: RedisClient; <span class="cp">ttlMs</span>: <span class="ct">number</span> }) {
+      <pre class="ambient-code-pane ambient-code-pane-primary"><code><span class="cc">/**
+ * Distributed Redis semaphore queue preventing deployment connection storms.
+ */</span>
+<span class="ck">export function</span> <span class="cf">createSemaphoreQueue</span>(deps: { <span class="cp">redis</span>: RedisClient; <span class="cp">ttlMs</span>: <span class="ct">number</span> }) {
   <span class="ck">const</span> _ = {
-    <span class="cp">activeLocks</span>: <span class="ck">new</span> <span class="ct">Map</span>&lt;<span class="ct">string</span>, <span class="ct"> string</span>&gt;(),
+    <span class="cp">activeLocks</span>: <span class="ck">new</span> <span class="ct">Map</span>&lt;<span class="ct">string</span>, <span class="ct">string</span>&gt;(),
     <span class="cp">maxConcurrency</span>: <span class="cn">40</span>,
     <span class="cp">namespace</span>: <span class="cs">'swarm:deploy:semaphore'</span>,
   };
@@ -39,7 +43,11 @@
   <span class="ck">const</span> acquireSlot = <span class="ck">async</span> (instanceId: <span class="ct">string</span>): <span class="ct">Promise</span>&lt;<span class="ct">boolean</span>&gt; =&gt; {
     <span class="ck">const</span> lockKey = <span class="cs">`${_.namespace}:${instanceId}`</span>;
     <span class="ck">const</span> acquired = <span class="ck">await</span> deps.redis.<span class="cf">set</span>(lockKey, <span class="cs">'LOCKED'</span>, <span class="cs">'NX'</span>, <span class="cs">'PX'</span>, deps.ttlMs);
-    <span class="ck">if</span> (acquired) _.activeLocks.<span class="cf">set</span>(instanceId, lockKey);
+
+    <span class="ck">if</span> (acquired) {
+      _.activeLocks.<span class="cf">set</span>(instanceId, lockKey);
+    }
+
     <span class="ck">return</span> <span class="cf">Boolean</span>(acquired);
   };
 
@@ -58,38 +66,47 @@
 <span class="ck">GROUP BY</span> s.station_code
 <span class="ck">ORDER BY</span> throughput_count <span class="ck">DESC</span>;</code></pre>
 
-      <pre class="ambient-code-pane ambient-code-pane-secondary"><code><span class="cc">// Model Context Protocol (MCP) Hierarchical Concept Memory Server</span>
+      <pre class="ambient-code-pane ambient-code-pane-secondary"><code><span class="cc">/**
+ * Registers hierarchical concept-graph tools on an MCP server instance.
+ */</span>
 <span class="ck">export function</span> <span class="cf">registerMemoryTools</span>(server: <span class="ct">McpServer</span>, store: <span class="ct">ConceptStore</span>) {
   server.<span class="cf">tool</span>(
     <span class="cs">'query_concept_graph'</span>,
-    { <span class="cp">domain</span>: z.<span class="cf">string</span>(), <span class="cp">depth</span>: z.<span class="cf">number</span>().<span class="cf">default</span>(<span class="cn">2</span>) },
-    <span class="ck">async</span> ({ domain, depth }) =&gt; {
-      <span class="ck">const</span> nodes = <span class="ck">await</span> store.<span class="cf">traverseHierarchy</span>({ domain, depth });
+    { <span class="cp">depth</span>: z.<span class="cf">number</span>().<span class="cf">default</span>(<span class="cn">2</span>), <span class="cp">domain</span>: z.<span class="cf">string</span>() },
+    <span class="ck">async</span> ({ depth, domain }) =&gt; {
+      <span class="ck">const</span> nodes = <span class="ck">await</span> store.<span class="cf">traverseHierarchy</span>({ depth, domain });
+
       <span class="ck">return</span> {
-        <span class="cp">content</span>: [{ <span class="cp">type</span>: <span class="cs">'text'</span>, <span class="cp">text</span>: <span class="ct">JSON</span>.<span class="cf">stringify</span>(nodes, <span class="ck">null</span>, <span class="cn">2</span>) }],
+        <span class="cp">content</span>: [{ <span class="cp">text</span>: <span class="ct">JSON</span>.<span class="cf">stringify</span>(nodes, <span class="ck">null</span>, <span class="cn">2</span>), <span class="cp">type</span>: <span class="cs">'text'</span> }],
       };
     },
   );
 }
 
-<span class="cc">// Reusable Web Worker Higher-Order Function (HOF) Wrapper</span>
+<span class="cc">/**
+ * Wraps a synchronous function in a dedicated Web Worker thread.
+ */</span>
 <span class="ck">export const</span> <span class="cf">withWorkerThread</span> = &lt;<span class="ct">TArgs</span> <span class="ck">extends</span> <span class="ct">unknown</span>[], <span class="ct">TResult</span>&gt;(
   fn: (...args: <span class="ct">TArgs</span>) =&gt; <span class="ct">TResult</span>,
 ) =&gt; {
   <span class="ck">const</span> source = <span class="cs">`self.onmessage = (e) =&gt; self.postMessage((${fn.toString()})(...e.data));`</span>;
-  <span class="ck">const</span> blobUrl = <span class="ct">URL</span>.<span class="cf">createObjectURL</span>(<span class="ck">new</span> <span class="ct">Blob</span>([source], { <span class="cp">type</span>: <span class="cs">'text/javascript'</span> }));
+  <span class="ck">const</span> blob = <span class="ck">new</span> <span class="ct">Blob</span>([source], { <span class="cp">type</span>: <span class="cs">'text/javascript'</span> });
+  <span class="ck">const</span> blobUrl = <span class="ct">URL</span>.<span class="cf">createObjectURL</span>(blob);
 
   <span class="ck">return</span> (...args: <span class="ct">TArgs</span>): <span class="ct">Promise</span>&lt;<span class="ct">TResult</span>&gt; =&gt;
     <span class="ck">new</span> <span class="ct">Promise</span>((resolve, reject) =&gt; {
       <span class="ck">const</span> worker = <span class="ck">new</span> <span class="ct">Worker</span>(blobUrl);
-      worker.<span class="cp">onmessage</span> = (event) =&gt; {
-        worker.<span class="cf">terminate</span>();
-        <span class="cf">resolve</span>(event.data);
-      };
-      worker.<span class="cp">onerror</span> = (err) =&gt; {
-        worker.<span class="cf">terminate</span>();
-        <span class="cf">reject</span>(err);
-      };
+
+      <span class="ct">Object</span>.<span class="cf">assign</span>(worker, {
+        <span class="cf">onerror</span>(err: <span class="ct">ErrorEvent</span>) {
+          worker.<span class="cf">terminate</span>();
+          <span class="cf">reject</span>(err);
+        },
+        <span class="cf">onmessage</span>(event: <span class="ct">MessageEvent</span>&lt;<span class="ct">TResult</span>&gt;) {
+          worker.<span class="cf">terminate</span>();
+          <span class="cf">resolve</span>(event.data);
+        },
+      });
       worker.<span class="cf">postMessage</span>(args);
     });
 };</code></pre>
@@ -104,6 +121,7 @@
         <div class="brand-identity">
           <a
             class="brand-name"
+
             href="#top"
           >Christopher Strolia-Davis</a>
           <span class="brand-tag">Principal &amp; Staff Software Engineer</span>
@@ -111,22 +129,27 @@
 
         <nav
           class="site-nav"
+
           aria-label="Primary navigation"
         >
           <a
             class="nav-link"
+
             href="#experience"
           >Experience</a>
           <a
             class="nav-link"
+
             href="#projects"
           >Projects &amp; Demos</a>
           <a
             class="nav-link"
+
             href="#articles"
           >Articles</a>
           <a
             class="nav-link"
+
             href="#education"
           >Education</a>
         </nav>
@@ -154,25 +177,30 @@
           <div class="sidebar-panel">
             <nav
               class="sidebar-doc-nav"
+
               aria-label="Mobile section navigation"
             >
               <a
                 class="nav-link"
+
                 data-close-menu="true"
                 href="#experience"
               >Experience</a>
               <a
                 class="nav-link"
+
                 data-close-menu="true"
                 href="#projects"
               >Projects &amp; Demos</a>
               <a
                 class="nav-link"
+
                 data-close-menu="true"
                 href="#articles"
               >Articles</a>
               <a
                 class="nav-link"
+
                 data-close-menu="true"
                 href="#education"
               >Education</a>
@@ -203,6 +231,7 @@
         >
       <section
         class="hero-section"
+
         aria-labelledby="hero-heading"
       >
         <div class="hero-eyebrow">
@@ -218,7 +247,8 @@
         </h1>
 
         <p class="hero-subtitle">
-          Principal &amp; Staff Software Engineer &middot; Technical Leader &middot; Full-Stack &amp; Data Architect
+          Principal &amp; Staff Software Engineer &middot; Technical Leader &middot;
+          Full-Stack &amp; Data Architect
         </p>
 
         <div
@@ -274,7 +304,8 @@
             Work Experience &amp; Architectural Impact
           </h2>
           <p class="section-subtitle">
-            Click any skill in the menu—or any technology pill inside a role—to isolate matching achievements
+            Click any skill in the menu—or any technology pill inside a role—to isolate matching
+            achievements
           </p>
         </div>
 
@@ -298,7 +329,8 @@
             Open-Source Tooling &amp; Reference Applications
           </h2>
           <p class="section-subtitle">
-            Zero-dependency TypeScript/Bun packages, MCP servers, and edX bootcamp reference creations
+            Zero-dependency TypeScript/Bun packages, MCP servers, and edX bootcamp reference
+            creations
           </p>
         </div>
 

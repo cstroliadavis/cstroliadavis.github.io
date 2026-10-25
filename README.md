@@ -13,10 +13,13 @@ Executive engineering portfolio and interactive, skill-filterable work history f
 Built with zero runtime dependencies using semantic HTML5, modern CSS (`--sdc-*` custom
 properties and container queries), and closure-based ES modules:
 
-- [`index.html`](./index.html) — Semantic layout shell
+- [`index.html`](./index.html) — Semantic layout shell with responsive top navigation and
+  categorized skills menu
 - [`styles.css`](./styles.css) — Light confidence-oriented navy/slate theme with subtle
   crimson/charcoal accents
-- [`src/data.js`](./src/data.js) — Structured career roles, skill-tagged achievement
-  bullets, open-source repositories, edX curriculum apps (`Shop-Shop` and `Photo Port`),
-  and Medium publications
-- [`src/app.js`](./src/app.js) — Interactive skill-set filter controller
+- [`src/data.js`](./src/data.js) — Structured career roles, skill-tagged achievement bullets,
+  categorized skill competencies, open-source repositories, edX curriculum apps (`Shop-Shop` and
+  `Photo Port`), and Medium publications
+- [`src/app.js`](./src/app.js) — Interactive multi-skill filter, category expansion, and
+  responsive menu controller
+- [`src/app.test.js`](./src/app.test.js) — Unit and data-integrity test suite (`bun test`)
