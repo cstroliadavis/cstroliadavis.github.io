@@ -3,7 +3,10 @@
 Executive engineering portfolio and interactive, skill-filterable work history for
 **Christopher Strolia-Davis** (Principal & Staff Software Engineer).
 
-- **Live Site:** [https://cstroliadavis.github.io](https://cstroliadavis.github.io)
+- **Live Site:** [https://strolia-davis.us](https://strolia-davis.us)
+  ([https://cstroliadavis.github.io](https://cstroliadavis.github.io))
+- **Schedule a Call (Calendly):**
+  [calendly.com/principal-engineer-strolia-davis/interview](https://calendly.com/principal-engineer-strolia-davis/interview)
 - **LinkedIn:** [linkedin.com/in/cstroliadavis](https://www.linkedin.com/in/cstroliadavis/)
 - **GitHub:** [github.com/cstroliadavis](https://github.com/cstroliadavis)
 - **Medium:** [medium.com/@cstroliadavis](https://medium.com/@cstroliadavis)
